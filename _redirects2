@@ -1,0 +1,2 @@
+/node_modules/* /nm/:splat 200
+/redirect https://www.bing.com/
