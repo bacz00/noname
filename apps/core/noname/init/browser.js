@@ -2,16 +2,16 @@
 export default async function browserReady({ lib, game }) {
 	lib.path = (await import("path-browserify-esm")).default;
 
-	try {
-		await fetch(`/checkFile?fileName=noname.js`)
-			.then(response => response.json())
-			.then(result => {
-				if (!result?.success) throw new Error(result.errorMsg);
-			});
-	} catch (e) {
-		console.error("文件读写函数初始化失败:", e);
-		return;
-	}
+	// try {
+	// 	await fetch(`/checkFile?fileName=noname.js`)
+	// 		.then(response => response.json())
+	// 		.then(result => {
+	// 			if (!result?.success) throw new Error(result.errorMsg);
+	// 		});
+	// } catch (e) {
+	// 	console.error("文件读写函数初始化失败:", e);
+	// 	return;
+	// }
 
 	game.export = function (data, name) {
 		if (typeof data === "string") {
@@ -48,28 +48,29 @@ export default async function browserReady({ lib, game }) {
 	 * @return {void} - 由于三端的异步需求和历史原因，文件管理必须为回调异步函数
 	 */
 	game.checkFile = function checkFile(fileName, callback, onerror) {
-		fetch(`/checkFile?fileName=${fileName}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result) {
-					if (result.success) {
-						switch (result.data) {
-							case "file":
-								callback?.(1);
-								return;
-							case "directory":
-								callback?.(0);
-								return;
-							default:
-								callback?.(-1);
-								return;
-						}
-					}
-				}
+		// fetch(`/checkFile?fileName=${fileName}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result) {
+		// 			if (result.success) {
+		// 				switch (result.data) {
+		// 					case "file":
+		// 						callback?.(1);
+		// 						return;
+		// 					case "directory":
+		// 						callback?.(0);
+		// 						return;
+		// 					default:
+		// 						callback?.(-1);
+		// 						return;
+		// 				}
+		// 			}
+		// 		}
 
-				onerror?.(result?.errorMsg);
-			})
-			.catch(onerror);
+		// 		onerror?.(result?.errorMsg);
+		// 	})
+		// 	.catch(onerror);
+		callback?.(-1);
 	};
 
 	/**
@@ -84,138 +85,145 @@ export default async function browserReady({ lib, game }) {
 	 * @return {void} - 由于三端的异步需求和历史原因，文件管理必须为回调异步函数
 	 */
 	game.checkDir = function checkDir(dir, callback, onerror) {
-		fetch(`/checkDir?dir=${dir}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result) {
-					if (result.success) {
-						switch (result.data) {
-							case "file":
-								callback?.(0);
-								return;
-							case "directory":
-								callback?.(1);
-								return;
-							default:
-								callback?.(-1);
-								return;
-						}
-					}
-				}
+		// fetch(`/checkDir?dir=${dir}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result) {
+		// 			if (result.success) {
+		// 				switch (result.data) {
+		// 					case "file":
+		// 						callback?.(0);
+		// 						return;
+		// 					case "directory":
+		// 						callback?.(1);
+		// 						return;
+		// 					default:
+		// 						callback?.(-1);
+		// 						return;
+		// 				}
+		// 			}
+		// 		}
 
-				onerror?.(result?.errorMsg);
-			})
-			.catch(onerror);
+		// 		onerror?.(result?.errorMsg);
+		// 	})
+		// 	.catch(onerror);
+		callback?.(-1);
 	};
 
 	game.readFile = function readFile(fileName, callback = () => {}, error = () => {}) {
-		fetch(`/readFile?fileName=${fileName}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result?.success) {
-					const data = result.data;
+		// fetch(`/readFile?fileName=${fileName}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result?.success) {
+		// 			const data = result.data;
 
-					/** @type {Uint8Array} */
-					let buffer;
-					if (typeof data == "string") {
-						buffer = Uint8Array.fromBase64(data);
-					} else if (Array.isArray(data)) {
-						buffer = new Uint8Array(data);
-					}
+		// 			/** @type {Uint8Array} */
+		// 			let buffer;
+		// 			if (typeof data == "string") {
+		// 				buffer = Uint8Array.fromBase64(data);
+		// 			} else if (Array.isArray(data)) {
+		// 				buffer = new Uint8Array(data);
+		// 			}
 
-					callback(buffer.buffer);
-				} else {
-					error(result?.errorMsg);
-				}
-			})
-			.catch(error);
+		// 			callback(buffer.buffer);
+		// 		} else {
+		// 			error(result?.errorMsg);
+		// 		}
+		// 	})
+		// 	.catch(error);
+		callback();
 	};
 
 	game.readFileAsText = function readFileAsText(fileName, callback = () => {}, error = () => {}) {
-		fetch(`/readFileAsText?fileName=${fileName}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result?.success) {
-					callback(result.data);
-				} else {
-					error(result?.errorMsg);
-				}
-			})
-			.catch(error);
+		// fetch(`/readFileAsText?fileName=${fileName}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result?.success) {
+		// 			callback(result.data);
+		// 		} else {
+		// 			error(result?.errorMsg);
+		// 		}
+		// 	})
+		// 	.catch(error);
+		callback();
 	};
 
 	game.writeFile = function writeFile(data, path, name, callback = () => {}) {
-		game.ensureDirectory(path, () => {
-			if (Object.prototype.toString.call(data) == "[object File]") {
-				const fileReader = new FileReader();
-				fileReader.onload = event => {
-					game.writeFile(event.target.result, path, name, callback);
-				};
-				fileReader.readAsArrayBuffer(data, "UTF-8");
-			} else {
-				let filePath = path;
-				if (path.endsWith("/")) {
-					filePath += name;
-				} else if (path == "") {
-					filePath += name;
-				} else {
-					filePath += "/" + name;
-				}
+		// game.ensureDirectory(path, () => {
+		// 	if (Object.prototype.toString.call(data) == "[object File]") {
+		// 		const fileReader = new FileReader();
+		// 		fileReader.onload = event => {
+		// 			game.writeFile(event.target.result, path, name, callback);
+		// 		};
+		// 		fileReader.readAsArrayBuffer(data, "UTF-8");
+		// 	} else {
+		// 		let filePath = path;
+		// 		if (path.endsWith("/")) {
+		// 			filePath += name;
+		// 		} else if (path == "") {
+		// 			filePath += name;
+		// 		} else {
+		// 			filePath += "/" + name;
+		// 		}
 
-				fetch(`/writeFile`, {
-					method: "post",
-					headers: { "Content-Type": "application/json" },
-					body: JSON.stringify({
-						data:
-							typeof data == "string"
-								? data
-								: Array.prototype.slice.call(new Uint8Array(data)),
-						path: filePath,
-					}),
-				})
-					.then(response => response.json())
-					.then(result => {
-						if (result?.success) {
-							callback();
-						} else {
-							callback(result?.errorMsg);
-						}
-					});
-			}
-		});
+		// 		fetch(`/writeFile`, {
+		// 			method: "post",
+		// 			headers: { "Content-Type": "application/json" },
+		// 			body: JSON.stringify({
+		// 				data:
+		// 					typeof data == "string"
+		// 						? data
+		// 						: Array.prototype.slice.call(new Uint8Array(data)),
+		// 				path: filePath,
+		// 			}),
+		// 		})
+		// 			.then(response => response.json())
+		// 			.then(result => {
+		// 				if (result?.success) {
+		// 					callback();
+		// 				} else {
+		// 					callback(result?.errorMsg);
+		// 				}
+		// 			});
+		// 	}
+		// });
+		callback();
 	};
 
 	game.removeFile = function removeFile(fileName, callback = () => {}, error = () => {}) {
-		fetch(`/removeFile?fileName=${fileName}`)
-			.then(response => response.json())
-			.then(result => {
-				callback(result.errorMsg);
-			})
-			.catch(error);
+		// fetch(`/removeFile?fileName=${fileName}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		callback(result.errorMsg);
+		// 	})
+		// 	.catch(error);
+		callback();
 	};
 
 	game.getFileList = function getFileList(dir, callback = () => {}, onerror) {
-		fetch(`/getFileList?dir=${dir}`)
-			.then(response => response.json())
-			.then(result => {
-				if (!result) {
-					throw new Error("Cannot get available resource.");
-				}
+		// fetch(`/getFileList?dir=${dir}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (!result) {
+		// 			throw new Error("Cannot get available resource.");
+		// 		}
 
-				if (result.success) {
-					callback(result.data.folders, result.data.files);
-				} else if (onerror) {
-					onerror(new Error(result.errorMsg));
-				}
-			});
+		// 		if (result.success) {
+		// 			callback(result.data.folders, result.data.files);
+		// 		} else if (onerror) {
+		// 			onerror(new Error(result.errorMsg));
+		// 		}
+		// 	});
+		callback([], []);
 	};
 
 	game.ensureDirectory = function ensureDirectory(list, callback = () => {}, file = false) {
-		let pathArray = typeof list == "string" ? list.split("/") : list;
-		if (file) {
-			pathArray = pathArray.slice(0, -1);
-		}
-		game.createDir(pathArray.join("/"), callback, console.error);
+		// let pathArray = typeof list == "string" ? list.split("/") : list;
+		// if (file) {
+		// 	pathArray = pathArray.slice(0, -1);
+		// }
+		// game.createDir(pathArray.join("/"), callback, console.error);
+		callback();
 	};
 
 	game.createDir = function createDir(
@@ -223,31 +231,33 @@ export default async function browserReady({ lib, game }) {
 		successCallback = () => {},
 		errorCallback = () => {}
 	) {
-		fetch(`/createDir?dir=${directory}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result?.success) {
-					successCallback();
-				} else {
-					errorCallback(new Error("创建文件夹失败"));
-				}
-			})
-			.catch(errorCallback);
+		// fetch(`/createDir?dir=${directory}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result?.success) {
+		// 			successCallback();
+		// 		} else {
+		// 			errorCallback(new Error("创建文件夹失败"));
+		// 		}
+		// 	})
+		// 	.catch(errorCallback);
+		successCallback();
 	};
 	game.removeDir = function removeDir(
 		directory,
 		successCallback = () => {},
 		errorCallback = () => {}
 	) {
-		fetch(`/removeDir?dir=${directory}`)
-			.then(response => response.json())
-			.then(result => {
-				if (result?.success) {
-					successCallback();
-				} else {
-					errorCallback(new Error("创建文件夹失败"));
-				}
-			})
-			.catch(errorCallback);
+		// fetch(`/removeDir?dir=${directory}`)
+		// 	.then(response => response.json())
+		// 	.then(result => {
+		// 		if (result?.success) {
+		// 			successCallback();
+		// 		} else {
+		// 			errorCallback(new Error("创建文件夹失败"));
+		// 		}
+		// 	})
+		// 	.catch(errorCallback);
+		successCallback();
 	};
 }
