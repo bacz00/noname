@@ -44,6 +44,19 @@ export default function (): importExtensionConfig {
 				lib.translate[group] =
 					`<span class="starlight-group-translation">${translation}</span><div class="starlight-${group} starlight-group-icon"></div>`;
 			});
+			if (pack.character?.character) {
+				for (const [name, character] of Object.entries(pack.character.character)) {
+					const vol = Number(name.slice(-1));
+					if (name.slice(0, 3) != "rs_" || isNaN(vol)) {
+						continue;
+					}
+					if (Array.isArray(character)) {
+						character[4]?.push(`ext:starlight/image/character/vol${vol}/${name.slice(3)}.png`);
+					} else {
+						character.img ??= `extension/starlight/image/character/vol${vol}/${name.slice(3)}.png`;
+					} 
+				}
+			}
 		},
 		precontent: function () {},
 		config: {},
