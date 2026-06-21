@@ -57,6 +57,12 @@ export default function (): importExtensionConfig {
 					} 
 				}
 			}
+			if (pack.skill?.skill) {
+				for (const skillId of Object.keys(pack.skill.skill)) {
+					pack.skill.translate[`${skillId}_cost`] ??= pack.skill[skillId];
+					pack.skill.translate[`${skillId}_cost_info`] ??= pack.skill[`${skillId}_info`];
+				}
+			}
 		},
 		precontent: function () {},
 		config: {},
