@@ -1,0 +1,16 @@
+{
+	"extends": "../../../tsconfig.json",
+	"exclude": ["**/dist"],
+	"compilerOptions": {
+		"paths": {
+			"@/*": ["../../../apps/core/noname/*"],
+			"noname": ["../../../apps/core/noname.js"]
+		},
+		"typeRoots": ["../../../apps/core/typings", "../../../node_modules/@types"],
+		"allowJs": true,
+		"allowImportingTsExtensions": true,
+		"checkJs": true,
+		"noEmit": true
+	},
+	"include": ["src/**/*.ts", "../../../apps/core/typings/**/*.d.ts"],
+}
