@@ -3164,6 +3164,7 @@ export default () => {
 						if (!lib.choiceFour.includes(name)) {
 							return true;
 						}
+						// 由于下面都有卫语句，所以删除武将包后，暂时不用动这里
 						if (lib.characterPack.refresh && lib.characterPack.refresh[name]) {
 							if (!lib.configOL.characterPack.includes("refresh")) {
 								return true;
