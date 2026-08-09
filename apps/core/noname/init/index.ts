@@ -154,7 +154,7 @@ export async function boot() {
 		if (typeof lib.device != "undefined" || typeof window.require === "function") {
 			music.music_custom = "自定义音乐";
 		}
-		config.get("all").background_music = ["music_default"];
+		config.get("all").background_music = ["music_hoshi_no_dialogue"];
 		for (const name in pack.music) {
 			config.get("all").background_music.push(name);
 			music[name] = pack.music[name];

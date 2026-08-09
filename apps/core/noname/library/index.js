@@ -5044,7 +5044,7 @@ export class Library {
 					name: "背景音乐",
 					init: true,
 					item: {
-						music_default: "默认",
+						music_hoshi_no_dialogue: "默认",
 					},
 					onclick(item) {
 						game.saveConfig("background_music", item);
