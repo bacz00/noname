@@ -60,8 +60,8 @@
 			"onlyOL"
 		],
 		"sgscards": ["standard", "extra", "sp", "guozhan", "zhulu", "yingbian", "yongjian"],
-		"sgsmodes": ["identity", "guozhan", "versus", "doudizhu", "single", "brawl", "connect"],
-		"stockmode": ["identity", "guozhan", "versus", "boss", "doudizhu", "single", "chess", "stone", "connect", "brawl", "tafang"],
+		"sgsmodes": ["identity", "versus", "doudizhu", "single", "connect"],
+		"stockmode": ["identity", "versus", "doudizhu", "single", "connect"],
 		"stockextension": ["boss", "cardpile", "coin"],
 		"layout": ["default", "newlayout"],
 		"theme": ["woodden", "music", "simple"],
@@ -206,7 +206,7 @@
 		"yijiang",
 		"yingbian"
 	],
-	"moderned_modes": ["guozhan"],
+	"moderned_modes": [],
 	"connect_characters": ["diy"],
 	"connect_cards": ["huodong", "guozhan", "sp", "zhulu", "yingbian", "yongjian", "xianxia"],
 	"plays": [],
@@ -250,11 +250,6 @@
 			},
 			"show_identity": true,
 			"difficulty": "normal",
-			"dierestart": true
-		},
-		"guozhan": {
-			"difficulty": "normal",
-			"initshow_draw": "mark",
 			"dierestart": true
 		}
 	},
