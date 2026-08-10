@@ -229,13 +229,13 @@
 	border-radius: 0px;
 }
 #arena > .player[data-position="0"]:not(.minskin) {
-	top: calc(100% - 258px);
+	top: calc(100% - 210px);
 }
 #arena[data-player_height="default"] > .player[data-position="0"]:not(.minskin) {
-	top: calc(100% - 238px);
+	top: calc(100% - 210px);
 }
 #arena[data-player_height="short"] > .player[data-position="0"]:not(.minskin) {
-	top: calc(100% - 218px);
+	top: calc(100% - 210px);
 }
 
 #arena > .player:not(.minskin) > .marks {
@@ -256,17 +256,17 @@
 
 #arena > .player:not(.minskin) {
 	width: 120px !important;
-	height: 220px !important;
+	height: 166px !important;
 }
 #arena > .player:not(.minskin) > .damage.dieidentity {
 	font-size: 60px;
 	transform: scale(1);
 }
 #arena[data-player_height="default"] > .player:not(.minskin) {
-	height: 200px !important;
+	height: 166px !important;
 }
 #arena[data-player_height="short"] > .player:not(.minskin) {
-	height: 180px !important;
+	height: 166px !important;
 }
 #arena > .player:not(.minskin) > .equips {
 	transform: scale(0.8);
