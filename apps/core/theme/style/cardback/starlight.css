@@ -1,0 +1,18 @@
+.card:empty,
+.card.infohidden {
+	background: url("image/starlight_long.png");
+	background-size: 100% 100%;
+}
+.card.infohidden:not(.infoflip) {
+	background: url("image/starlight_long2.png");
+	background-size: 100% 100%;
+}
+.card.button:empty,
+.card.button.infohidden {
+	background: url("image/starlight.png");
+	background-size: 100% 100%;
+}
+.card.button.infohidden:not(.infoflip) {
+	background: url("image/starlight2.png");
+	background-size: 100% 100%;
+}

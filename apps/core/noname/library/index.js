@@ -305,27 +305,29 @@ export class Library {
 		function () {
 			let url = "";
 			switch (lib.config.cardback_style) {
-				case "official":
-					url = "theme/style/cardback/image/official.png";
-					break;
-				case "feicheng":
-					url = "theme/style/cardback/image/feicheng.png";
-					break;
-				case "liusha":
-					url = "theme/style/cardback/image/liusha.png";
-					break;
-				case "ol":
-					url = "theme/style/cardback/image/ol.png";
-					break;
-				case "new":
-					url = "theme/style/cardback/image/new.png";
-					break;
-				case "wood":
-					url = "theme/woodden/wood.jpg";
-					break;
-				case "music":
-					url = "theme/music/wood3.png";
-					break;
+				case "starlight":
+					url = "theme/style/cardback/image/starlight.png";
+				// case "official":
+				// 	url = "theme/style/cardback/image/official.png";
+				// 	break;
+				// case "feicheng":
+				// 	url = "theme/style/cardback/image/feicheng.png";
+				// 	break;
+				// case "liusha":
+				// 	url = "theme/style/cardback/image/liusha.png";
+				// 	break;
+				// case "ol":
+				// 	url = "theme/style/cardback/image/ol.png";
+				// 	break;
+				// case "new":
+				// 	url = "theme/style/cardback/image/new.png";
+				// 	break;
+				// case "wood":
+				// 	url = "theme/woodden/wood.jpg";
+				// 	break;
+				// case "music":
+				// 	url = "theme/music/wood3.png";
+				// 	break;
 				case "custom":
 					game.getDB("image", "cardback_style", function (fileToLoad) {
 						if (!fileToLoad) {
@@ -2482,13 +2484,14 @@ export class Library {
 					intro: "设置背面朝上的卡牌的样式",
 					init: "default",
 					item: {
-						// wood:'木纹',
-						// music:'音乐',
-						official: "原版",
-						// new:'新版',
-						feicheng: "废城",
-						liusha: "流沙",
-						ol: "手杀",
+						starlight: "星光",
+						// // wood:'木纹',
+						// // music:'音乐',
+						// official: "原版",
+						// // new:'新版',
+						// feicheng: "废城",
+						// liusha: "流沙",
+						// ol: "手杀",
 						custom: "自定",
 						default: "默认",
 					},
@@ -2556,35 +2559,39 @@ export class Library {
 								node.style.backgroundImage = "none";
 								node.className = "button character dashedmenubutton";
 								break;
-							case "new":
+							case "starlight":
 								node.className = "button character";
-								node.setBackgroundImage("theme/style/cardback/image/new.png");
+								node.setBackgroundImage("theme/style/cardback/image/starlight.png");
 								break;
-							case "feicheng":
-								node.className = "button character";
-								node.setBackgroundImage("theme/style/cardback/image/feicheng.png");
-								break;
-							case "official":
-								node.className = "button character";
-								node.setBackgroundImage("theme/style/cardback/image/official.png");
-								break;
-							case "liusha":
-								node.className = "button character";
-								node.setBackgroundImage("theme/style/cardback/image/liusha.png");
-								break;
-							case "ol":
-								node.className = "button character";
-								node.setBackgroundImage("theme/style/cardback/image/ol.png");
-								break;
-							case "wood":
-								node.className = "button card fullskin";
-								node.setBackgroundImage("theme/woodden/wood.jpg");
-								node.style.backgroundSize = "initial";
-								break;
-							case "music":
-								node.className = "button card fullskin";
-								node.setBackgroundImage("theme/music/wood3.png");
-								break;
+							// case "new":
+							// 	node.className = "button character";
+							// 	node.setBackgroundImage("theme/style/cardback/image/new.png");
+							// 	break;
+							// case "feicheng":
+							// 	node.className = "button character";
+							// 	node.setBackgroundImage("theme/style/cardback/image/feicheng.png");
+							// 	break;
+							// case "official":
+							// 	node.className = "button character";
+							// 	node.setBackgroundImage("theme/style/cardback/image/official.png");
+							// 	break;
+							// case "liusha":
+							// 	node.className = "button character";
+							// 	node.setBackgroundImage("theme/style/cardback/image/liusha.png");
+							// 	break;
+							// case "ol":
+							// 	node.className = "button character";
+							// 	node.setBackgroundImage("theme/style/cardback/image/ol.png");
+							// 	break;
+							// case "wood":
+							// 	node.className = "button card fullskin";
+							// 	node.setBackgroundImage("theme/woodden/wood.jpg");
+							// 	node.style.backgroundSize = "initial";
+							// 	break;
+							// case "music":
+							// 	node.className = "button card fullskin";
+							// 	node.setBackgroundImage("theme/music/wood3.png");
+							// 	break;
 						}
 						if (link == "custom") {
 							node.classList.add("transparent");
@@ -2623,27 +2630,30 @@ export class Library {
 						}
 						let url = "";
 						switch (layout) {
-							case "official":
-								url = "theme/style/cardback/image/official.png";
+							case "starlight":
+								url = "theme/style/cardback/image/starlight.png";
 								break;
-							case "feicheng":
-								url = "theme/style/cardback/image/feicheng.png";
-								break;
-							case "liusha":
-								url = "theme/style/cardback/image/liusha.png";
-								break;
-							case "ol":
-								url = "theme/style/cardback/image/ol.png";
-								break;
-							case "new":
-								url = "theme/style/cardback/image/new.png";
-								break;
-							case "wood":
-								url = "theme/woodden/wood.jpg";
-								break;
-							case "music":
-								url = "theme/music/wood3.png";
-								break;
+							// case "official":
+							// 	url = "theme/style/cardback/image/official.png";
+							// 	break;
+							// case "feicheng":
+							// 	url = "theme/style/cardback/image/feicheng.png";
+							// 	break;
+							// case "liusha":
+							// 	url = "theme/style/cardback/image/liusha.png";
+							// 	break;
+							// case "ol":
+							// 	url = "theme/style/cardback/image/ol.png";
+							// 	break;
+							// case "new":
+							// 	url = "theme/style/cardback/image/new.png";
+							// 	break;
+							// case "wood":
+							// 	url = "theme/woodden/wood.jpg";
+							// 	break;
+							// case "music":
+							// 	url = "theme/music/wood3.png";
+							// 	break;
 							case "custom":
 								game.getDB("image", "cardback_style", function (fileToLoad) {
 									if (!fileToLoad) {

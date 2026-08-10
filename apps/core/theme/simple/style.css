@@ -149,11 +149,20 @@ html {
 
 .card:empty,
 .card.infohidden {
-	background: url("../style/cardback/image/official.png");
+	background: url("../style/cardback/image/starlight_long.png");
 	background-size: 100% 100%;
 }
 .card.infohidden:not(.infoflip) {
-	background: url("../style/cardback/image/official2.png");
+	background: url("../style/cardback/image/starlight_long2.png");
+	background-size: 100% 100%;
+}
+.card.button:empty,
+.card.button.infohidden {
+	background: url("../style/cardback/image/starlight.png");
+	background-size: 100% 100%;
+}
+.card.button.infohidden:not(.infoflip) {
+	background: url("../style/cardback/image/starlight2.png");
 	background-size: 100% 100%;
 }
 
