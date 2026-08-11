@@ -55,8 +55,8 @@ window.noname_package = {
 	mode: {
 		identity: "身份",
 		// guozhan: "国战",
-		versus: "对决",
 		connect: "联机",
+		versus: "对决",
 		// boss: "挑战",
 		doudizhu: "斗地主",
 		single: "单挑",

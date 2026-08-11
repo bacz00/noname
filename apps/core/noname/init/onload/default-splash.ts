@@ -59,7 +59,7 @@ export class DefaultSplash implements IOnloadSplash {
 	}
 
 	handle(mode: string): string {
-		return lib.path.join(this.path, `${mode}.jpg`);
+		return lib.path.join(this.path, `${mode}.png`);
 	}
 
 	click(mode: string, node: HTMLDivElement): void {

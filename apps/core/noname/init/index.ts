@@ -486,7 +486,9 @@ export async function boot() {
 			splash = lib.onloadSplashes[0];
 		}
 
-		let node = ui.create.div("#splash", document.body);
+
+		const splashWrapper = ui.create.div("#splash-wrapper", document.body);
+		let node = ui.create.div("#splash", splashWrapper);
 
 		let { promise, resolve } = Promise.withResolvers();
 		await splash.init(node, resolve);
