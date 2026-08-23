@@ -24,7 +24,7 @@ export async function boot() {
 
 	await import("./polyfill.js");
 	// 设定游戏加载时间，超过时间未加载就提醒
-	const configLoadTime = parseInt(localStorage.getItem(lib.configprefix + "loadtime") || "10000");
+	const configLoadTime = parseInt(localStorage.getItem(lib.configprefix + "loadtime") || "30000");
 	// 现在不暴露到全局变量里了，直接传给onload
 	const resetGameTimeout = setTimeout(lib.init.reset, configLoadTime);
 
