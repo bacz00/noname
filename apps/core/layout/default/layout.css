@@ -349,7 +349,7 @@ table {
 	height: 80%;
 	max-height: 500px;
 	display: grid;
-	grid-template-columns: repeat(3, max-content);
+	grid-template-columns: repeat(3, 1fr);
 	grid-template-rows: repeat(3, 1fr);
 	column-gap: 20px;
 	row-gap: 20px;
