@@ -2466,7 +2466,7 @@ export class Create {
 			lib.config.touchscreen ? "touchend" : "click",
 			() => {
 				if (!ui.backgroundMusic.played.length && lib.config.background_music != "music_off" && !isNaN(ui.backgroundMusic.duration)) {
-					ui.backgroundMusic.play();
+					ui.backgroundMusic.play().catch(() => {});
 				}
 			},
 			{ once: true }
