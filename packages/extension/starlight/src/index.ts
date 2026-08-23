@@ -96,9 +96,9 @@ export default function (): importExtensionConfig {
 						continue;
 					}
 					if (Array.isArray(character)) {
-						character[4]?.push(`ext:starlight/image/character/vol${vol}/${name.slice(3)}.png`);
+						character[4]?.push(`ext:starlight/image/character/vol${vol}/${name.slice(3)}.jpg`);
 					} else {
-						character.img ??= `extension/starlight/image/character/vol${vol}/${name.slice(3)}.png`;
+						character.img ??= `extension/starlight/image/character/vol${vol}/${name.slice(3)}.jpg`;
 					} 
 				}
 			}
