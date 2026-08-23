@@ -108,6 +108,69 @@ export default function (): importExtensionConfig {
 					pack.skill.translate[`${skillId}_cost_info`] ??= pack.skill[`${skillId}_info`];
 				}
 			}
+
+			lib.translate.cixiong = lib.translate.cixiong_skill = "党争双股剑";
+			lib.translate.cixiong_info = lib.translate.cixiong_skill_info = "当你使用【杀】指定与你为CP的一个目标后，你可以令其选择一项：1.弃置一张手牌；2.令你摸一张牌。";
+			lib.skill.cixiong_skill._cpSet = new Set([
+				"rs_hikari|rs_karen",
+				"rs_karen|rs_mahiru",
+				"rs_junna|rs_karen",
+				"rs_kaoruko|rs_karen",
+				"rs_aruru|rs_karen",
+				"rs_hikari|rs_mahiru",
+				"rs_mahiru|rs_suzu",
+				"rs_claudine|rs_maya",
+				"rs_kaoruko|rs_maya",
+				"rs_koharu|rs_maya",
+				"rs_claudine|rs_futaba",
+				"rs_claudine|rs_fumi",
+				"rs_claudine|rs_shiori",
+				"rs_claudine|rs_tsukasa",
+				"rs_claudine|rs_koharu",
+				"rs_banana|rs_junna",
+				"rs_banana|rs_yuyuko",
+				"rs_banana|rs_hisame",
+				"rs_futaba|rs_kaoruko",
+				"rs_kaoruko|rs_tamao",
+				"rs_rui|rs_tamao",
+				"rs_tamao|rs_yuyuko",
+				"rs_ichie|rs_tamao",
+				"rs_fumi|rs_tamao",
+				"rs_rui|rs_yuyuko",
+				"rs_fumi|rs_ichie",
+				"rs_ichie|rs_minku",
+				"rs_akira|rs_fumi",
+				"rs_fumi|rs_yachiyo",
+				"rs_fumi|rs_shiori",
+				"rs_akira|rs_michiru",
+				"rs_akira|rs_shiori",
+				"rs_akira|rs_hisame",
+				"rs_akira|rs_kuina",
+				"rs_michiru|rs_minku",
+				"rs_meifan|rs_yachiyo",
+				"rs_shiori|rs_yachiyo",
+				"rs_tsukasa|rs_yachiyo",
+				"rs_aruru|rs_misora",
+				"rs_aruru|rs_shizuha",
+				"rs_aruru|rs_lalafin",
+				"rs_aruru|rs_tsukasa",
+				"rs_lalafin|rs_shizuha",
+				"rs_shizuha|rs_tsukasa",
+				"rs_hisame|rs_koharu",
+				"rs_koharu|rs_suzu",
+				"rs_hisame|rs_suzu",
+				"rs_ryoko|rs_stella",
+				"rs_shiro|rs_stella"
+			]);
+			lib.skill.cixiong_skill._isCp = function(player1, player2) {
+				const name1 = (typeof player1 == 'string' ? player1 : player1?.name as string | undefined)?.slice(0, -1) ?? "";
+				const name2 = (typeof player2 == 'string' ? player2 : player2?.name as string | undefined)?.slice(0, -1) ?? "";
+				const cpSet = this._cpSet as Set<string>;
+				return cpSet.has(name1 < name2 ? `${name1}|${name2}` : `${name2}|${name1}`);
+			};
+			lib.skill.cixiong_skill.filter = function(event, player) {
+				return event.card.name == "sha" && this._isCp(player, event.target);
+			}
 		},
 		precontent: function () {},
 		config: {},
