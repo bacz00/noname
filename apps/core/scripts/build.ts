@@ -57,7 +57,7 @@ async function main() {
 	 * `false`表示暂未存在可以构建的文件，后续会直接复制
 	 */
 	const individuals: Record<IndividualType, false | IndividualContent[]> = {
-		character: [],
+		character: moderned_characters.length > 0 ? [] : false,
 		mode: [{ name: "identity", index: "mode/identity.js", moderned: false }],
 		card: false,
 	};
