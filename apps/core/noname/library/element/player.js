@@ -3512,6 +3512,8 @@ export class Player extends HTMLDivElement {
 		};
 		this.sex = info.sex;
 		this.group = info.group;
+		this.dataset.group = this.group;
+		this.dataset.subgroup = (["rs_stella", "rs_shiro", "rs_ryoko", "rs_minku", "rs_kuina"].includes(this.name.slice(0, -1)) ? "seekfelt_middle" : this.group);
 		this.hp = hp1;
 		this.maxHp = maxHp1;
 		this.hujia = hujia1;

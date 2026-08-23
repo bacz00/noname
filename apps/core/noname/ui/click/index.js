@@ -3875,6 +3875,8 @@ export class Click {
 							.catch(() => (characterGroupDiv.innerHTML = characterGroups.map(characterGroup => get.translation(characterGroup)).join("/")));
 					} else {
 						const characterGroup = nameInfo[1];
+						characterIntroTable.dataset.group = characterGroup;
+						characterIntroTable.dataset.subgroup = (["rs_stella", "rs_shiro", "rs_ryoko", "rs_minku", "rs_kuina"].includes(name.slice(0, -1)) ? "seekfelt_middle" : characterGroup);
 						Promise.resolve()
 							.then(async () => {
 								const imageName = `group_${characterGroup}`,

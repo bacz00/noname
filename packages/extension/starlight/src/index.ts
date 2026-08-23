@@ -44,6 +44,46 @@ export default function (): importExtensionConfig {
 				lib.translate[group] =
 					`<span class="starlight-group-translation">${translation}</span><div class="starlight-${group} starlight-group-icon"></div>`;
 			});
+			[...Object.keys(groups), "seekfelt_middle"].forEach(group =>
+				game.dynamicStyle.addObject({
+					// 保留不同血量不同颜色的修改空间，所以暂时就不简化了
+					[`div[data-subgroup="${group}"] > .hp:not(.text):not(.actcount):not(.treasure)[data-condition="high"] > div:not(.lost):not(.shield)`]: {
+						background: `url(extension/starlight/image/hp/${group}.png)`,
+						"box-shadow": "none",
+						border: "none",
+						"background-size": "100% 100%",
+						transform: "scale(1.9)",
+						"-webkit-filter": "none",
+						"border-radius": "0px",
+					},
+					[`div[data-subgroup="${group}"] > .hp:not(.text):not(.actcount):not(.treasure)[data-condition="mid"] > div:not(.lost):not(.shield)`]: {
+						background: `url(extension/starlight/image/hp/${group}.png)`,
+						"box-shadow": "none",
+						border: "none",
+						"background-size": "100% 100%",
+						transform: "scale(1.9)",
+						"-webkit-filter": "none",
+						"border-radius": "0px",
+					},
+					[`div[data-subgroup="${group}"] > .hp:not(.text):not(.actcount):not(.treasure)[data-condition="low"] > div:not(.lost):not(.shield)`]: {
+						background: `url(extension/starlight/image/hp/${group}.png)`,
+						"box-shadow": "none",
+						border: "none",
+						"background-size": "100% 100%",
+						transform: "scale(1.9)",
+						"-webkit-filter": "none",
+						"border-radius": "0px",
+					},
+					[`div[data-subgroup="${group}"] > .hp:not(.text):not(.actcount):not(.treasure) > .lost`]: {
+						background: `url(extension/starlight/image/hp/${group}.png)`,
+						"box-shadow": "none",
+						border: "none",
+						"background-size": "100% 100%",
+						transform: "scale(1.9)",
+						"border-radius": "0px",
+					},
+				})
+			);
 			lib.dynamicTranslate.rs_daiao = player =>
 				"出牌阶段限两次，你可以对一名本回合未以此法指定过的角色造成一点伤害，然后其可以弃一张牌，回复一点体力。" +
 				(player.hasSkill("rs_xingzui") && player.storage.rs_xingzui ? "（【星罪】：当前伤害值+1）" : "");

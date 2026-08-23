@@ -3420,6 +3420,8 @@ export class Create {
 					intro: ui.create.div(".intro", node),
 				};
 				var infoitem = get.character(item);
+				node.dataset.group = infoitem.group;
+				node.dataset.subgroup = (["rs_stella", "rs_shiro", "rs_ryoko", "rs_minku", "rs_kuina"].includes(item.slice(0, -1)) ? "seekfelt_middle" : infoitem.group);
 				node.node.name.innerHTML = get.slimName(item);
 				if (lib.config.buttoncharacter_style == "default" || lib.config.buttoncharacter_style == "simple") {
 					if (lib.config.buttoncharacter_style == "simple") {
