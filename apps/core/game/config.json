@@ -137,7 +137,7 @@
 	"right_click": "pause",
 	"sort": "type_sort",
 	"cards": ["standard", "extra"],
-	"characters": [],
+	"characters": ["starlight"],
 	"moderned_characters": [],
 	"moderned_modes": [],
 	"connect_characters": [],
