@@ -297,12 +297,14 @@ export default function (): importExtensionConfig {
 						group: "seisho",
 						hp: 4,
 						skills:  ["rs_daiao", "rs_gexin", "rs_xingzui_unawaken_perm"],
+						isZhugong: true,
 					}),
 					rs_hikari1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 3,
 						skills: ["rs_fuhai", "rs_xingshu"],
+						isZhugong: true,
 					}),
 					rs_mahiru1: new lib.element.Character({
 						sex: "female",
@@ -321,6 +323,7 @@ export default function (): importExtensionConfig {
 						group: "seisho",
 						hp: 4,
 						skills: ["rs_kuiao", "rs_huangxing"],
+						isZhugong: true,
 					}),
 					rs_junna1: new lib.element.Character({
 						sex: "female",
@@ -351,6 +354,7 @@ export default function (): importExtensionConfig {
 						group: "rinmeikan",
 						hp: 4,
 						skills: ["rs_dieyong", "rs_linyun", "rs_ranying"],
+						isZhugong: true,
 					}),
 					rs_ichie1: new lib.element.Character({
 						sex: "female",
@@ -405,12 +409,14 @@ export default function (): importExtensionConfig {
 						group: "frontier",
 						hp: 4,
 						skills: ["rs_yuxin", "rs_lianwu", "rs_zhenjing"],
+						isZhugong: true,
 					}),
 					rs_akira1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 4,
 						skills: ["rs_kanwei", "rs_hunwang"],
+						isZhugong: true,
 					}),
 					rs_michiru1: new lib.element.Character({
 						sex: "female",
@@ -477,6 +483,7 @@ export default function (): importExtensionConfig {
 						group: "seiran",
 						hp: 4,
 						skills: ["rs_qingyan", "rs_chilan"],
+						isZhugong: true,
 					}),
 					rs_hisame1: new lib.element.Character({
 						sex: "female",
