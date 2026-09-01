@@ -1,3 +1,4 @@
+import skill from "@/library/skill";
 import { lib, game, ui, get, ai, _status } from "noname";
 
 export const type = "extension";
@@ -298,6 +299,7 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills:  ["rs_daiao", "rs_gexin", "rs_xingzui_unawaken_perm"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_hikari1: new lib.element.Character({
 						sex: "female",
@@ -305,18 +307,21 @@ export default function (): importExtensionConfig {
 						hp: 3,
 						skills: ["rs_fuhai", "rs_xingshu"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_mahiru1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 3,
 						skills: ["rs_xuyang", "rs_yuxing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_claudine1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 4,
 						skills: ["rs_jiaohuo", "rs_juexing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_maya1: new lib.element.Character({
 						sex: "female",
@@ -324,30 +329,35 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills: ["rs_kuiao", "rs_huangxing"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_junna1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 3,
 						skills: ["rs_shujian", "rs_xiexing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_banana1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 3,
 						skills: ["rs_kuangyan", "rs_zhongmu", "rs_zhuxing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_futaba1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 4,
 						skills: ["rs_juedao", "rs_lixing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_kaoruko1: new lib.element.Character({
 						sex: "female",
 						group: "seisho",
 						hp: 3,
 						skills: ["rs_wanxi", "rs_zhanhua", "rs_fengxing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_tamao1: new lib.element.Character({
 						sex: "female",
@@ -355,54 +365,63 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills: ["rs_dieyong", "rs_linyun", "rs_ranying"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_ichie1: new lib.element.Character({
 						sex: "female",
 						group: "rinmeikan",
 						hp: 3,
 						skills: ["rs_exi", "rs_xiaying"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_fumi1: new lib.element.Character({
 						sex: "female",
 						group: "rinmeikan",
 						hp: 4,
 						skills: ["rs_huangni", "rs_wangying"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_rui1: new lib.element.Character({
 						sex: "female",
 						group: "rinmeikan",
 						hp: 4,
 						skills: ["rs_canqiao", "rs_jueying"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_yuyuko1: new lib.element.Character({
 						sex: "female",
 						group: "rinmeikan",
 						hp: 3,
 						skills: ["rs_youmian", "rs_yeying"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_aruru1: new lib.element.Character({
 						sex: "female",
 						group: "frontier",
 						hp: 3,
 						skills: ["rs_yueyue", "rs_pojing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_misora1: new lib.element.Character({
 						sex: "female",
 						group: "frontier",
 						hp: 4,
 						skills: ["rs_shixin", "rs_xiejing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_lalafin1: new lib.element.Character({
 						sex: "female",
 						group: "frontier",
 						hp: 3,
 						skills: ["rs_jiancan", "rs_ruijing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_tsukasa1: new lib.element.Character({
 						sex: "female",
 						group: "frontier",
 						hp: 4,
 						skills: ["rs_yueyong", "rs_roujing"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_shizuha1: new lib.element.Character({
 						sex: "female",
@@ -410,6 +429,7 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills: ["rs_yuxin", "rs_lianwu", "rs_zhenjing"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_akira1: new lib.element.Character({
 						sex: "female",
@@ -417,66 +437,77 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills: ["rs_kanwei", "rs_hunwang"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_michiru1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_mingjian", "rs_jiebi", "rs_zuowang"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_meifan1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 4,
 						skills: ["rs_balan", "rs_zhuwang"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_shiori1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_zhihuang", "rs_ruowang"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_yachiyo1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_anji", "rs_yinwang"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_stella1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_zhongchong", "rs_weigen"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_shiro1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_zhongshu", "rs_weilang"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_ryoko1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_mozheng", "rs_weijiu"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_minku1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_xiayi", "rs_weidiao"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_kuina1: new lib.element.Character({
 						sex: "female",
 						group: "seekfelt",
 						hp: 3,
 						skills: ["rs_fuyang", "rs_weizhi"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_suzu1: new lib.element.Character({
 						sex: "female",
 						group: "seiran",
 						hp: 4,
 						skills: ["rs_qingxie", "rs_cuilan"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_koharu1: new lib.element.Character({
 						sex: "female",
@@ -484,12 +515,14 @@ export default function (): importExtensionConfig {
 						hp: 4,
 						skills: ["rs_qingyan", "rs_chilan"],
 						isZhugong: true,
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_hisame1: new lib.element.Character({
 						sex: "female",
 						group: "seiran",
 						hp: 3,
 						skills: ["rs_qingji", "rs_jinlan"],
+						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 				},
 			},
@@ -529,19 +562,19 @@ export default function (): importExtensionConfig {
 					rs_huangxing: "煌星",
 					rs_huangxing_info: "你的字母牌视为K；你赢得拼点后可获得对方的拼点牌。",
 					rs_shujian: "书箭",
-					rs_shujian_info: "出牌阶段限一次，你可将至多两张牌当【无中生有】对等量任意角色使用，此牌对其他角色可当【万箭齐发】结算。",
+					rs_shujian_info: "出牌阶段限一次，你可以将至多两张牌当【无中生有】对等量角色使用，此牌对其他角色生效时，可改为结算【万箭齐发】。",
 					rs_xiexing: "撷星",
 					rs_xiexing_info: "每回合限一次，当前回合角色于摸牌阶段外恰好摸两张牌后，你可以令其摸一张牌，然后你重铸一张牌。",
 					rs_kuangyan: "狂宴",
 					rs_kuangyan_info: "锁定技，准备阶段，你失去一点体力，然后视为使用X张【杀】(X为你武将牌上失去的技能数)。",
-					rs_zhongmu: "终慕",
+					rs_zhongmu: "终幕",
 					rs_zhongmu_info: "锁定技，当你失去体力时，你改为：1.失去一个技能；2.摸两张牌令此技能本回合失效。",
 					rs_zhuxing: "逐星",
 					rs_zhuxing_info: "出牌阶段限X次，你可以失去一点体力并移动场上一张牌；当你失去此技能时，你增加一点体力上限并回复一点体力(X为你武将牌上失去的技能数)。",
 					rs_juedao: "决道",
 					rs_juedao_info: "出牌阶段限一次，你可以摸两张牌并展示手牌，将其中所有【杀】或非基本牌当有次数限制的【杀】使用；若此牌被抵消，结束阶段你发动一次摸牌数-1的“决道”。",
 					rs_lixing: "离星",
-					rs_lixing_info: "锁定技，当你于一个出牌阶段同时失去多张牌后，你本阶段下一次造成与受到的伤害皆+1。",
+					rs_lixing_info: "锁定技，当你同时失去多张牌后，你本阶段下一次造成与受到造成的伤害皆+1。",
 					rs_wanxi: "顽戏",
 					rs_wanxi_info: "锁定技，出牌阶段，你每个非锁定技首次发动后弃一张牌。",
 					rs_zhanhua: "绽花",
@@ -573,7 +606,7 @@ export default function (): importExtensionConfig {
 					rs_yeying: "夜樱",
 					rs_yeying_info: "结束阶段开始前，你可以获得并使用场上一张牌，将此阶段改为另一个阶段；若你的牌数因此变多，此阶段不能获得与使用牌。",
 					rs_yueyue: "跃月",
-					rs_yueyue_info: "你的阶段开始时，你可以使用一张牌。然后若此阶段为本回合第X个阶段(X为此牌牌名字数)，你可以摸一张牌并跳过此阶段，否则此技能本轮失效。",
+					rs_yueyue_info: "你的阶段开始时，你可以使用一张牌，然后若此牌的牌名字数不为X，此技能本轮失效；否则你可以摸一张牌并跳过此阶段。",
 					rs_pojing: "破境",
 					rs_pojing_info: "每轮限一次，回合结束时，你可以令一名角色执行一个只有你本回合发动过“跃月”的所有阶段的回合。",
 					rs_shixin: "识心",
@@ -593,7 +626,7 @@ export default function (): importExtensionConfig {
 					rs_lianwu: "镰舞",
 					rs_lianwu_info: "锁定技，你使用无色【杀】时，此牌目标数与攻击范围+1。",
 					rs_zhenjing: "臻境",
-					rs_zhenjing_info: "每回合限2次，你可以将X张手牌当基本牌使用或打出(X为你拥有的锁定技数，每回合仅能因此回复一次体力)。",
+					rs_zhenjing_info: "每回合限X次，你可以将X张手牌当基本牌使用或打出(X为你拥有的锁定技数，每回合仅能因此回复一次体力)。",
 					rs_kanwei: "瞰威",
 					rs_kanwei_info: "出牌阶段各限一次，你可以重铸2/3/4张不同颜色/类型/花色的牌，令你本回合使用的下一张【杀】或普通锦囊牌可以指定等量目标。",
 					rs_hunwang: "浑王",
@@ -652,6 +685,7 @@ export default function (): importExtensionConfig {
 				},
 				skill: {
 					rs_daiao: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 2,
 						filterTarget: (_card, player, target) => !player.getStorage("rs_daiao_used").includes(target),
@@ -688,6 +722,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_gexin: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: { player: "dying" },
 						forced: true,
 						juexingji: true,
@@ -772,14 +807,21 @@ export default function (): importExtensionConfig {
 							content: storage =>
 								!storage ? "阳：锁定技，你不因实体牌的效果回复体力的回复值+1" : "阴：锁定技，你不因实体牌的效果造成伤害的伤害值+1",
 						},
-						filter: (event, player) =>
+						filter: (event, player) =>	
 							event.name == (player.storage.rs_xingzui ? "damage" : "recover") && (!event.card || !event.cards?.length),
 						content: async (event, trigger, player) => {
+							const extPath = lib.assetURL + "extension/starlight/audio/";
+							if (player.storage.rs_xingzui) {
+								new Audio(extPath + "xingzui_yin.mp3").play();
+							} else {
+								new Audio(extPath + "xingzui_yang.mp3").play();
+							}
 							player.changeZhuanhuanji(event.name);
 							trigger.num++;
 						},
 					},
 					rs_fuhai: {
+						audio: "ext:starlight/audio/skill:true",
 						mod: {
 							globalFrom(from, to) {
 								if (from.isTurnedOver()) return Infinity;
@@ -800,6 +842,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xingshu: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "loseAfter",
 						},
@@ -841,8 +884,9 @@ export default function (): importExtensionConfig {
 						group: "rs_xingshu_use",
 						subSkill: {
 							use: {
+								audio: "ext:starlight/audio/skill:true",
 								trigger: {
-									global: "phaseEnd",
+									global: "phaseJieshuBegin",
 								},
 								async cost(event, trigger, player) {
 									const expansion = player.getExpansions("rs_xingshu");
@@ -939,6 +983,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xuyang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseZhunbeiBegin",
 						},
@@ -956,7 +1001,7 @@ export default function (): importExtensionConfig {
 							for (const target of targets) {
 								if (!target.isIn() || !target.countCards("she") || target == player) continue;
 								const result = await target
-									.chooseCard("she", `###煦阳###是否交给${get.translation(player)}一张手牌？`)
+									.chooseCard("she", `###煦阳###是否交给${get.translation(player)}一张牌？`)
 									.set("ai", card => {
 										const goon = get.event().goon;
 										return goon ? 6 - get.value(card) : 0;
@@ -968,13 +1013,14 @@ export default function (): importExtensionConfig {
 									giveList.push(target);
 								}
 							}
-							if (giveList.length < targets.length) {
+							if (giveList.length < targets.length / 2) {
 								game.log(player, "与", giveList, "摸一张牌");
 								await game.asyncDraw([player, ...giveList], 1);
 							}
 						},
 					},
 					rs_yuxing: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseUseBegin",
 						},
@@ -1032,10 +1078,14 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_jiaohuo: {
-						enable: "phaseUse",
+						audio: "ext:starlight/audio/skill:true",
+						enable: "chooseToUse",
 						manualConfirm: true,
 						usable: 1,
 						filter(event, player) {
+							const canUseSha = event.filterCard(get.autoViewAs({ name: "sha" }, "unsure"), player, event);
+							const canUseJuedou = event.filterCard(get.autoViewAs({ name: "juedou" }, "unsure"), player, event);
+							if (!canUseSha && !canUseJuedou) return false;
 							return player.countCards("hej") > 0;
 						},
 						async content(event, trigger, player) {
@@ -1077,11 +1127,21 @@ export default function (): importExtensionConfig {
 											const links = ui.selected.buttons.map(btn => btn.link);
 											const bool1 = links.filter(link => link != "sha" && link != "juedou").length == 1;
 											const bool2 = links.filter(link => link == "sha" || link == "juedou").length == 1;
+											if (rangeRestriction && links.includes("sha")) {
+												if (player.isPhaseUsing() && player.getCardUsable({ name: "sha" }) == 0) {
+													return false;
+												}
+											}
+
 											return bool1 && bool2;
 										})
 										.set("filterButton", button => {
 											console.log(button,button.link)
 											const link = button.link;
+											if (link == "sha" && rangeRestriction && player.isPhaseUsing() && player.getCardUsable({ name: "sha" }) == 0) {
+												return false;
+											}
+
 											if (link == "sha" && !player.hasUseTarget({ name: "sha" }, rangeRestriction, false)) {
 												return false;
 											}
@@ -1147,6 +1207,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_juexing: {
+						audio: false,
 						enable: ["chooseToUse"],
 						filter(event, player) {
 							return (event.filterCard(get.autoViewAs({ name: "jiu" }, "unsure"), player, event) && player.countCards("she", c => get.type(c) != "basic")) || (event.filterCard(get.autoViewAs({ name: "bingliang" }, "unsure"), player, event) && player.countCards("she", c => get.type2(c) != "trick") && !player.hasJudge("bingliang"));
@@ -1202,6 +1263,8 @@ export default function (): importExtensionConfig {
 									},
 									viewAs: { name: cardName },
 									async precontent(event, trigger, player) {
+										const extPath = lib.assetURL + "extension/starlight/audio/";
+										 new Audio(extPath + "juexing.mp3").play();
 										player.tempBanSkill("rs_juexing", "roundStart");
 										const card = event.result.card;
 										if (!card) return;
@@ -1238,6 +1301,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_kuiao: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: "useCardToPlayered",
 						},
@@ -1320,6 +1384,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangxing: {
+						audio: "ext:starlight/audio/skill:true",
 						mod: {
 							cardnumber(card, player) {
 								const num = card.number;
@@ -1367,6 +1432,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_shujian: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						filterCard: true,
@@ -1422,6 +1488,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xiexing: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: "gainAfter",
 						},
@@ -1437,7 +1504,7 @@ export default function (): importExtensionConfig {
 							await trigger.player.draw();
 							if (player.countCards("she") > 0) {
 								const result = await player
-									.chooseCard("she", 1, "###撷星###是否选择一张牌重铸？")
+									.chooseCard(true, "she", 1, "###撷星###请重铸一张牌!")
 									.set("ai", card => {
 										return 6 - get.value(card);
 									})
@@ -1449,6 +1516,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_kuangyan: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseBegin",
 						},
@@ -1472,6 +1540,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhongmu: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "loseHpBegin",
 						},
@@ -1485,7 +1554,7 @@ export default function (): importExtensionConfig {
 
 							const result = await player
 								.chooseControl(skills, "cancel2")
-								.set("prompt", "###终慕###选择失去一个技能，或者取消并摸两张牌令此技能本回合失效！")
+								.set("prompt", "###终幕###选择失去一个技能，或者取消并摸两张牌令此技能本回合失效！")
 								.set("ai", () => {
 									const controls = get.event().controls;
 									if (controls.includes("rs_zhuxing")) return "rs_zhuxing";
@@ -1502,6 +1571,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhuxing: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable() {
 							const player = get.player();
@@ -1546,6 +1616,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_juedao: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						async content(event, trigger, player) {
@@ -1621,7 +1692,11 @@ export default function (): importExtensionConfig {
 									player: ["shaMiss"],
 								},
 								filter(event, player, name) {
-									return event.getParent(3).name == "rs_juedao";
+									const parent = event.getParent(3);
+									if (parent && parent.name == "rs_juedao" && !parent.isEndPhase) {
+										return true;
+									}
+									return false;
 								},
 								silent: true,
 								charlotte: true,
@@ -1649,6 +1724,7 @@ export default function (): importExtensionConfig {
 										const next = game.createEvent(skill);
 										next.player = player;
 										next.drawNum = 1;
+										next.isEndPhase = true;
 										next.setContent(get.info(skill).content);
 										await next;
 									}
@@ -1657,21 +1733,22 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_lixing: {
+						audio: false,
 						trigger: {
 							player: "loseAfter",
 						},
 						forced: true,
 						locked: true,
 						filter(event, player) {
-							if (!player.isPhaseUsing()) return false;
 							return event.cards?.length > 1;
 						},
 						async content(event, trigger, player) {
-							player.addTempSkill("rs_lixing_effect", "phaseUseAfter");
+							player.addTempSkill("rs_lixing_effect", "phaseAnyAfter");
 							player.addMark("rs_lixing_effect", 1, false);
 						},
 						subSkill: {
 							effect: {
+								audio: "ext:starlight/audio/skill:true",
 								trigger: {
 									source: "damageBegin",
 									player: "damageBegin",
@@ -1693,6 +1770,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_wanxi: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: ["useSkillAfter", "logSkillAfter"],
 						},
@@ -1725,6 +1803,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhanhua: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						async content(event, trigger, player) {
@@ -1803,6 +1882,7 @@ export default function (): importExtensionConfig {
 						group: ["rs_fengxing_end"],
 						subSkill: {
 							end: {
+								audio: "ext:starlight/audio/skill:true",
 								intro: {
 									markcount: "expansion",
 									content: "expansion",
@@ -1933,6 +2013,12 @@ export default function (): importExtensionConfig {
 							player.addTempSkill("rs_dieyong_used");
 							const color = get.color(cards[0], player);
 							const name = color == "red" ? "wugu" : "juedou";
+							const extPath = lib.assetURL + "extension/starlight/audio/";
+							if (color == "red") {
+								new Audio(extPath + "dieyong_wugu.mp3").play();
+							} else {
+								new Audio(extPath + "dieyong_juedou.mp3").play();
+							}
 							await player.useCard({ name }, event.targets);
 						},
 						ai: {
@@ -1956,6 +2042,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_linyun: {
+						audio: "ext:starlight/audio/skill:true",
 						limited: true,
 						trigger: {
 							global: "dyingBegin",
@@ -1983,6 +2070,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_ranying: {
+						audio: "ext:starlight/audio:2",
 						enable: "phaseUse",
 						usable: 4,
 						ai: {
@@ -2034,6 +2122,7 @@ export default function (): importExtensionConfig {
 						manualConfirm: true,
 					},
 					rs_exi: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: ["phaseAnyEnd"],
 						},
@@ -2106,7 +2195,7 @@ export default function (): importExtensionConfig {
 							if (showCards.length >= 2 && get.color(showCards[0]) == get.color(showCards[1])) {
 								if (showCards.some(card => target.hasUseTarget(card, true, false))) {
 									const use = await target
-										.chooseButton(["恶戏：请选择使用其中一张牌", showCards])
+										.chooseButton(true, [ "恶戏：请选择使用其中一张牌", showCards])
 										.set("filterButton", button => {
 											return get.player().hasUseTarget(button.link, true, false);
 										})
@@ -2145,6 +2234,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xiaying: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseDrawBegin2",
 						},
@@ -2192,6 +2282,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangni: {
+						audio: "ext:starlight/audio/skill:true",
 						group: ["rs_huangni_reset"],
 						subSkill: {
 							reset: {
@@ -2241,6 +2332,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_wangying: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						filterTarget(card, player, target) {
 							return target.countCards("he") > 0;
@@ -2304,6 +2396,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_canqiao: {
+						audio: false, 
 						hiddenCard(player, name) {
 							return (name == "sha" || name == "shan") && !player.getHistory("useSkill", evt => evt.skill == "rs_canqiao").length;
 						},
@@ -2342,6 +2435,8 @@ export default function (): importExtensionConfig {
 									selectCard: 0,
 									viewAs: { name: links[0][2], nature: links[0][3] },
 									async precontent(event, _, player) {
+										const extPath = lib.assetURL + "extension/starlight/audio/";
+										new Audio(extPath + "canqiao.mp3").play();
 										const name = event.result.card.name;
 										const controls = ["选项一", "选项二", "选项三", "选项四"];
 										const list = ["受到一点雷电伤害", "令当前回合角色摸两张牌", "重铸三种类型的牌", "展示四张不同花色的手牌"];
@@ -2455,11 +2550,13 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_jueying: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: ["chooseToRespondBegin", "chooseToUseBegin"],
 						},
 						usable: 1,
 						filter(event, player) {
+							if (event.getParent("jiadao")) return false;
 							if (event.responded || !event.respondTo || !event.respondTo?.[0] || !event.respondTo?.[1]) return false;
 							if (event.player == player || !player.inRange(event.player)) return false;
 							if (typeof event.filterCard != "function") return false;
@@ -2540,6 +2637,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_youmian: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						filterTarget(card, player, target) {
@@ -2581,6 +2679,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_yeying: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseChange",
 						},
@@ -2613,11 +2712,13 @@ export default function (): importExtensionConfig {
 						},
 						async content(event, trigger, player) {
 							const cards = event.cards?.length ? event.cards : event.cards?.[0]?.cards;
-							const num = player.countCards("hejs");
+							const num = player.countCards("hes");
 							if (cards?.length > 0) {
 								const cards2 = cards[0].cards?.length ? cards[0].cards : cards;
 								await player.gain(cards2, "gain2");
 								for (const card of cards2) {
+									if (card._name) card.name = card._name;
+									if (card._nature) card.nature = card._nature;
 									if (player.hasUseTarget(card, true, false)) {
 										await player.chooseUseTarget(card, true, false);
 									}
@@ -2641,7 +2742,7 @@ export default function (): importExtensionConfig {
 								.forResult();
 							trigger.phaseList[trigger.num] = `${result.control}|${event.name}`;
 							game.log(player, "将结束阶段改为了", `#y${phaseMap[result.control]}`);
-							if (player.countCards("hejs") > num) {
+							if (player.countCards("hes") > num) {
 								player.addTempSkill("rs_yeying_limit", {
 									player: ["phaseChange", "phaseAfter"],
 								});
@@ -2679,6 +2780,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_yueyue: {
+						audio: "ext:starlight/audio:2",
 						trigger: {
 							player: "phaseChange",
 						},
@@ -2707,8 +2809,6 @@ export default function (): importExtensionConfig {
 									player.when(phaseId + "Begin").then(() => {
 										trigger.cancel();
 									});
-								} else {
-									player.tempBanSkill("rs_yueyue", "roundStart");
 								}
 							} else {
 								player.tempBanSkill("rs_yueyue", "roundStart");
@@ -2732,6 +2832,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_pojing: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseEnd",
 						},
@@ -2757,6 +2858,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_shixin: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseDrawBegin",
 						},
@@ -2829,6 +2931,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xiejing: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: "phaseEnd",
 						},
@@ -2877,6 +2980,10 @@ export default function (): importExtensionConfig {
 								silent: true,
 								charlotte: true,
 								async content(event, trigger, player) {
+									if (event.triggername == "turnStart") {
+									player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
+									return;
+									}
 									if (event.triggername == "phaseAfter") {
 										player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 										return;
@@ -2890,6 +2997,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_jiancan: {
+						audio: false,
 						enable: ["chooseToUse"],
 						filter(event, player) {
 							if (event.filterCard(get.autoViewAs({ name: "juedou" }, "unsure"), player, event) && player.countCards("she", c => get.type2(c) == "trick")) return true;
@@ -2937,6 +3045,13 @@ export default function (): importExtensionConfig {
 										const name = lib.skill.rs_jiancan_backup.rule;
 										const skill = name == "jiu" ? "rs_jiancan_rule1" : "rs_jiancan_rule2";
 										player.addTempSkill(skill);
+										const extPath = lib.assetURL + "extension/starlight/audio/";
+										if (name == "jiu") {
+											new Audio(extPath + "rs_jiancan_jiu.mp3").play();
+										} else {
+											new Audio(extPath + "rs_jiancan_juedou.mp3").play();
+										}
+
 										const me = player;
 										player
 											.when("useCardAfter")
@@ -2954,7 +3069,7 @@ export default function (): importExtensionConfig {
 								if (rule == "rule1") {
 									return "将一张锦囊牌当【决斗】使用（【杀】视为【酒】的规则生效）";
 								} else {
-									return "将一张【杀】当【酒】使用（锦囊牌视为【决斗】的规则生效）";
+									return "请将一张按以下规则使用（另一项规则在其结算中生效）";
 								}
 							},
 						},
@@ -2988,6 +3103,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_ruijing: {
+						audio: "ext:starlight/audio/skill:true",
 						ai: {
 							order() {
 								return _status.currentPhase != get.player() ? 20 : 1;
@@ -3075,6 +3191,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_yueyong: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseZhunbeiBegin",
 						},
@@ -3164,6 +3281,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_roujing: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: "useCardToTargeted",
 						},
@@ -3213,6 +3331,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_yuxin: {
+						audio: "ext:starlight/audio:2",
 						trigger: {
 							player: ["useSkill", "logSkillBegin", "useCard", "respond"],
 						},
@@ -3265,7 +3384,9 @@ export default function (): importExtensionConfig {
 							const me = player;
 							const skill = result.control;
 							player.when({ global: "phaseAfter" }).step(() => {
-								me.addSkill(skill);
+								if (skill === "rs_yuxin" || skill === "rs_lianwu") {
+									me.addSkill(skill);
+								}
 							});
 						},
 					},
@@ -3289,7 +3410,14 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhenjing: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: ["chooseToUse", "chooseToRespond"],
+
+						usable(skill, player) {
+							if (!player) player = get.player();
+							return player.storage.rs_zhenjing_usable || 0;
+						},
+
 						getLockedSkills(player) {
 							if (!player) player = get.player();
 							if (!player || !player.getSkills) return [];
@@ -3297,10 +3425,6 @@ export default function (): importExtensionConfig {
 								const info = get.info(skill);
 								return info && !info.charlotte && (info.forced || info.locked);
 							});
-						},
-						usable(skill, player) {
-							// return lib.skill.rs_zhenjing.getLockedSkills(player).length;
-							return 2;
 						},
 						filter(event, player) {
 							const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
@@ -3373,6 +3497,12 @@ export default function (): importExtensionConfig {
 								return `将${X}张手牌当${get.translation(links[0][3] || "") + get.translation(links[0][2])}${_status.event.getParent().name == "chooseToUse" ? "使用" : "打出"}`;
 							},
 						},
+						
+						async content(event, trigger, player) {
+							player.storage.rs_zhenjing_usable--;
+							player.syncStorage("rs_zhenjing_usable");
+						},
+						
 						ai: {
 							order(item, player) {
 								const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
@@ -3396,8 +3526,32 @@ export default function (): importExtensionConfig {
 								return player.countCards("hs") >= X;
 							},
 						},
-						group: ["rs_zhenjing_recover"],
+						group: ["rs_zhenjing_recover", "rs_zhenjing_refresh"],
 						subSkill: {
+							refresh: {
+								trigger: {
+									global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
+								},
+								silent: true,
+								charlotte: true,
+								filter(event, player, name) {
+									// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
+									if (name == "addSkill") {
+										const skillName = event.skill || event.name;
+										const info = get.info(skillName);
+										// 如果不是锁定技，直接返回 false，不处理
+										return info && !info.charlotte && (info.forced || info.locked);
+									}
+									// 回合开始直接放行
+									return true;
+								},
+								async content(event, trigger, player) {
+									// 重新计算当前的锁定技数量，并直接覆盖 storage
+									const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
+									player.storage.rs_zhenjing_usable = lockedSkills.length;
+									player.syncStorage("rs_zhenjing_usable");
+								},
+							},
 							recover: {
 								charlotte: true,
 								trigger: {
@@ -3424,6 +3578,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_kanwei: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						getCanDo(player) {
 							const cards = player.getCards("she");
@@ -3473,6 +3628,7 @@ export default function (): importExtensionConfig {
 											.forResult();
 							player.markAuto("rs_kanwei_used", result.control);
 							player.addTempSkill("rs_kanwei_used");
+							player.removeSkill("rs_kanwei_effect"); 
 							player.addTempSkill("rs_kanwei_effect");
 							if (result.control == "选项一") {
 								player.setStorage("rs_kanwei_effect", 2);
@@ -3548,6 +3704,7 @@ export default function (): importExtensionConfig {
 								locked: true,
 								async cost(event, trigger, player) {
 									const maxTargets = player.countMark("rs_kanwei_effect");
+									player.removeSkill("rs_kanwei_effect");
 									event.result = await player
 										.chooseTarget(`###瞰威###是否为${get.translation(trigger.card)}改为指定${get.cnNumber(maxTargets)}个目标？`, [1, Infinity], function (card, player, target) {
 											const { targets, cardz } = get.event();
@@ -3602,6 +3759,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_hunwang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: ["recastAfter", "drawAfter", "damageAfter"],
 						},
@@ -3699,6 +3857,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_mingjian: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							global: "useCard2",
 						},
@@ -3729,6 +3888,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_jiebi: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						filter(event, player) {
 							return game.hasPlayer(p => p.countCards("he") > 1);
@@ -3810,6 +3970,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_balan: {
+						audio: false, 
 						trigger: {
 							source: "damageBegin",
 							player: "damageBegin2",
@@ -3841,16 +4002,20 @@ export default function (): importExtensionConfig {
 						},
 						async content(event, trigger, player) {
 							const control = event.cost_data;
+							const extPath = lib.assetURL + "extension/starlight/audio/";
 							if (control == "选项一") {
+								new Audio(extPath + "balan_a.mp3").play(); 
 								await player.chooseToDiscard(2, true, "she");
 								trigger.num += 1;
 							} else {
+								new Audio(extPath + "balan_b.mp3").play();  	
 								await player.draw(2);
 								player.tempBanSkill("rs_balan");
 							}
 						},
 					},
 					rs_zhuwang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseUseBegin",
 						},
@@ -3942,6 +4107,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhihuang: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						trigger: {
 							player: "damageAfter",
@@ -4077,6 +4243,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_ruowang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "recastBegin",
 						},
@@ -4122,6 +4289,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_anji: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						trigger: {
 							global: ["drawAfter", "loseAfter", "damageAfter"],
@@ -4205,6 +4373,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_yinwang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "phaseEnd",
 						},
@@ -4248,6 +4417,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhongchong: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						selectTarget: [1, Infinity],
@@ -4340,6 +4510,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_weigen: {
+						audio: "ext:starlight/audio:2",
 						trigger: {
 							player: ["drawAfter", "damageBegin3"],
 							global: ["linkBegin"],
@@ -4347,7 +4518,9 @@ export default function (): importExtensionConfig {
 						getIndex(event, player, name) {
 							if (event.parent.name == "rs_weigen") return 0;
 							if (name == "linkBegin") {
-								return event.parent.player == player ? 1 : 0;
+								if (event.parent.player == player) return 1;
+								if (event.player == player) return 1;;
+								return 0;
 							}
 							return name == "drawAfter" ? (event.num == 1 ? 1 : 0) : 1;
 						},
@@ -4365,7 +4538,7 @@ export default function (): importExtensionConfig {
 							});
 
 							const result = await player
-								.chooseButton(["危艮：你可以执行任一项", [buttons, "textbutton"]], [1, 2])
+								.chooseButton(["危艮：你可以执行任意项", [buttons, "textbutton"]], [1, 2])
 								.set("ai", button => {
 									const link = button.link;
 									if (link == "damageBegin3") return 0;
@@ -4401,6 +4574,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_zhongshu: {
+						audio: false,
 						enable: "phaseUse",
 						filter(event, player) {
 							const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
@@ -4437,6 +4611,7 @@ export default function (): importExtensionConfig {
 						],
 						async content(event, trigger, player) {
 							const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
+							const extPath = lib.assetURL + "extension/starlight/audio/"; 
 
 							while (true) {
 								const targets = game.filterPlayer(p => (p === player ? filter0(player) : filter1(player, p) || filter2(player, p)));
@@ -4509,12 +4684,15 @@ export default function (): importExtensionConfig {
 										const links = resultB.links;
 										if (links.includes(0) && player.countCards("h") < 3) {
 											await player.drawTo(3);
+											new Audio(extPath + "rs_zhongshu_draw.mp3").play();
 										}
 										if (links.includes(1) && player.isDamaged()) {
 											await player.recover();
+											new Audio(extPath + "rs_zhongshu_recover.mp3").play();
 										}
 										if (links.includes(2)) {
 											await player.damage(1, "thunder", player);
+											new Audio(extPath + "rs_zhongshu_damage.mp3").play();
 										}
 										player.markAuto("rs_zhongshu_used", links);
 										player.addTempSkill("rs_zhongshu_used");
@@ -4524,12 +4702,15 @@ export default function (): importExtensionConfig {
 										player.markAuto("rs_zhongshu_used", [link]);
 										if (link == 0) {
 											await target.drawTo(3);
+											new Audio(extPath + "rs_zhongshu_draw.mp3").play();
 										}
 										if (link == 1) {
 											await target.recover();
+											new Audio(extPath + "rs_zhongshu_recover.mp3").play();
 										}
 										if (link == 2) {
 											await target.damage(1, "thunder", player);
+											new Audio(extPath + "rs_zhongshu_damage.mp3").play();
 										}
 										break;
 									}
@@ -4552,6 +4733,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_weilang: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "damageBegin3",
 							source: "damageBegin2",
@@ -4587,6 +4769,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_mozheng: {
+						audio: "ext:starlight/audio:2",
 						trigger: {
 							global: ["phaseAnyEnd"],
 						},
@@ -4608,6 +4791,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_weijiu: {
+						audio: "ext:starlight/audio:2",
 						trigger: {
 							player: ["phaseDiscardBegin", "damageBegin2"],
 						},
@@ -4639,6 +4823,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_xiayi: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: {
 							player: "loseAfter",
 							global: ["equipAfter", "addJudgeAfter", "gainAfter", "loseAsyncAfter", "addToExpansionAfter"],
@@ -4716,6 +4901,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_weidiao: {
+						audio: "ext:starlight/audio:2",
 						enable: "phaseUse",
 						trigger: {
 							player: "damageBegin2",
@@ -4800,6 +4986,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_fuyang: {
+						audio: "ext:starlight/audio:2",
 						enable: "phaseUse",
 						trigger: {
 							player: "damageBegin2",
@@ -4828,6 +5015,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_weizhi: {
+						audio: false,
 						hiddenCard(player, name) {
 							return name == "sha" && player.countCards("she") > 1;
 						},
@@ -4874,6 +5062,10 @@ export default function (): importExtensionConfig {
 										return 5.6 - get.value(card);
 									},
 									async precontent(event, trigger, player) {
+										const extPath = lib.assetURL + "extension/starlight/audio/";
+										const randomNum = Math.random() < 0.5 ? 1 : 2;
+										new Audio(extPath + "rs_weizhi" + randomNum + ".mp3").play();
+										
 										if (event.result.card.nature == "thunder") {
 											event.getParent().addCount = false;
 										}
@@ -4911,6 +5103,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_qingxie: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						filterTarget(card, player, target) {
@@ -4971,6 +5164,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_cuilan: {
+						audio: "ext:starlight/audio/skill:true",
 						filter(event, player) {
 							return player.storage.rs_cuilan_record;
 						},
@@ -5022,7 +5216,7 @@ export default function (): importExtensionConfig {
 								silent: true,
 								charlotte: true,
 								filter(event, player) {
-									return event.giver == player && !player.storage.rs_cuilan_record;
+									return event.giver == player && event.cards?.length > 0 && !player.storage.rs_cuilan_record;
 								},
 								async content(event, trigger, player) {
 									player.storage.rs_cuilan_record = true;
@@ -5042,6 +5236,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_qingyan: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						usable: 1,
 						filterTarget(card, player, target) {
@@ -5095,6 +5290,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_chilan: {
+						audio: false,
 						trigger: {
 							global: "useCard",
 						},
@@ -5114,6 +5310,8 @@ export default function (): importExtensionConfig {
 						},
 						direct: true,
 						async content(event, trigger, player) {
+							const extPath = lib.assetURL + "extension/starlight/audio/";
+							new Audio(extPath + "chilan.mp3").play();
 							player.addTempSkill("rs_chilan_lose", "useCardAfter");
 						},
 						getNum(player) {
@@ -5185,6 +5383,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_qingji: {
+						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
 						filter(event, player) {
 							const num = player.getSkills(null, false, false).filter(skill => !lib.skill[skill].charlotte && !skill.startsWith("player_when")).length;
@@ -5319,6 +5518,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_jinlan: {
+						audio: "ext:starlight/audio/skill:true",
 						trigger: { global: "useCard2" },
 						filter(event, player) {
 							if (!event.player || event.player != _status.currentPhase) return false;
