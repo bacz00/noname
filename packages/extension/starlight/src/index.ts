@@ -1384,7 +1384,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangxing: {
-						audio: "ext:starlight/audio/skill:true",
+                        audio: "ext:starlight/audio/skill:true",
 						mod: {
 							cardnumber(card, player) {
 								const num = card.number;
@@ -2718,7 +2718,7 @@ export default function (): importExtensionConfig {
 								await player.gain(cards2, "gain2");
 								for (const card of cards2) {
 									if (card._name) card.name = card._name;
-									if (card._nature) card.nature = card._nature;
+                                    if (card._nature) card.nature = card._nature;
 									if (player.hasUseTarget(card, true, false)) {
 										await player.chooseUseTarget(card, true, false);
 									}
@@ -2840,7 +2840,7 @@ export default function (): importExtensionConfig {
 							return player.getStorage("rs_pojing").length > 0;
 						},
 						intro: {
-							content: "本回合跳过的阶段：$",
+							content: "“破境”回合拥有：$",
 						},
 						async cost(event, trigger, player) {
 							event.result = await player
@@ -2981,9 +2981,9 @@ export default function (): importExtensionConfig {
 								charlotte: true,
 								async content(event, trigger, player) {
 									if (event.triggername == "turnStart") {
-									player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
-									return;
-									}
+                                    player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
+                                    return;
+                                    }
 									if (event.triggername == "phaseAfter") {
 										player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 										return;
@@ -3179,7 +3179,7 @@ export default function (): importExtensionConfig {
 								}
 							} else {
 								for (const target of game.filterPlayer()) {
-									target.addTempSkill("rs_ruijing_ban");
+									target.addTempSkill("rs_ruijing_ban", "dyingAfter");
 								}
 								const hs = player.countCards("h");
 								if (hs > 3) {
@@ -3414,9 +3414,9 @@ export default function (): importExtensionConfig {
 						enable: ["chooseToUse", "chooseToRespond"],
 
 						usable(skill, player) {
-							if (!player) player = get.player();
-							return player.storage.rs_zhenjing_usable || 0;
-						},
+        					if (!player) player = get.player();
+        					return player.storage.rs_zhenjing_usable || 0;
+    					},
 
 						getLockedSkills(player) {
 							if (!player) player = get.player();
@@ -3529,29 +3529,29 @@ export default function (): importExtensionConfig {
 						group: ["rs_zhenjing_recover", "rs_zhenjing_refresh"],
 						subSkill: {
 							refresh: {
-								trigger: {
-									global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
-								},
-								silent: true,
-								charlotte: true,
-								filter(event, player, name) {
-									// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
-									if (name == "addSkill") {
-										const skillName = event.skill || event.name;
-										const info = get.info(skillName);
-										// 如果不是锁定技，直接返回 false，不处理
-										return info && !info.charlotte && (info.forced || info.locked);
-									}
-									// 回合开始直接放行
-									return true;
-								},
-								async content(event, trigger, player) {
-									// 重新计算当前的锁定技数量，并直接覆盖 storage
-									const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
-									player.storage.rs_zhenjing_usable = lockedSkills.length;
-									player.syncStorage("rs_zhenjing_usable");
-								},
-							},
+            					trigger: {
+                					global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
+           						},
+            					silent: true,
+            					charlotte: true,
+            					filter(event, player, name) {
+                					// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
+                					if (name == "addSkill") {
+                    					const skillName = event.skill || event.name;
+                    					const info = get.info(skillName);
+                    					// 如果不是锁定技，直接返回 false，不处理
+                    					return info && !info.charlotte && (info.forced || info.locked);
+                					}
+                					// 回合开始直接放行
+                					return true;
+           						},
+            					async content(event, trigger, player) {
+                					// 重新计算当前的锁定技数量，并直接覆盖 storage
+                					const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
+                					player.storage.rs_zhenjing_usable = lockedSkills.length;
+                					player.syncStorage("rs_zhenjing_usable");
+            					},
+        					},
 							recover: {
 								charlotte: true,
 								trigger: {
@@ -3704,7 +3704,6 @@ export default function (): importExtensionConfig {
 								locked: true,
 								async cost(event, trigger, player) {
 									const maxTargets = player.countMark("rs_kanwei_effect");
-									player.removeSkill("rs_kanwei_effect");
 									event.result = await player
 										.chooseTarget(`###瞰威###是否为${get.translation(trigger.card)}改为指定${get.cnNumber(maxTargets)}个目标？`, [1, Infinity], function (card, player, target) {
 											const { targets, cardz } = get.event();
@@ -3742,6 +3741,7 @@ export default function (): importExtensionConfig {
 									return event.card.name == "sha" || get.type(event.card) == "trick";
 								},
 								async content(event, trigger, player) {
+									player.removeSkill("rs_kanwei_effect");
 									const targets = event.targets;
 									const removedTargets = trigger.targets.filter(t => targets.includes(t));
 									const addedTargets = targets.filter(t => !trigger.targets.includes(t));
@@ -4232,7 +4232,7 @@ export default function (): importExtensionConfig {
 								},
 								charlotte: true,
 								mod: {
-									targetInRange: card => {
+									targetInRange: function(card, player, target) {
 										if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return true;
 									},
 									cardUsable: card => {
