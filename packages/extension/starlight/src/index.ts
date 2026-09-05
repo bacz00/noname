@@ -1772,7 +1772,7 @@ export default function (): importExtensionConfig {
 					rs_wanxi: {
 						audio: "ext:starlight/audio/skill:true",
 						trigger: {
-							player: ["useSkillAfter", "logSkillAfter"],
+							player: ["useSkillAfter", "logSkillAfter", "logSkill"],
 						},
 						filter(event, player) {
 							if (["global", "equip"].includes(event.type)) {
@@ -2334,13 +2334,17 @@ export default function (): importExtensionConfig {
 					rs_wangying: {
 						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
+						usable: 1,
 						filterTarget(card, player, target) {
 							return target.countCards("he") > 0;
 						},
 						filter(event, player, name) {
-							!name && (name = event.name);
+							const currentName = !name ? "chooseToUse" : name;
+
 							const storage = player.getStorage("rs_wangying_used");
-							if (storage.length >= 2 || storage.includes(name)) return false;
+
+							if (storage.length >= 2 && !storage.includes(currentName)) return false;
+
 							return true;
 						},
 						trigger: {
@@ -2865,7 +2869,7 @@ export default function (): importExtensionConfig {
 						async cost(event, trigger, player) {
 							event.result = await player
 								.chooseTarget("###识心###是否弃置一名角色一张牌？", (card, player, target) => {
-									return target.countDiscardableCards(player, "hej") > 0;
+									return target.countDiscardableCards(player, "he") > 0;
 								})
 								.set("ai", target => {
 									const player = get.player();
@@ -2877,17 +2881,16 @@ export default function (): importExtensionConfig {
 							// 懒得优化了
 							const target = event.targets[0];
 							const allTargets = [target];
-							const result1 = await player.discardPlayerCard(target, "hej", true).forResult();
+							const result1 = await player.discardPlayerCard(target, "he", true).forResult();
 							if (!game.hasPlayer(p => p != target && p.countCards("he") > 0)) {
 								if (!allTargets.includes(player)) {
 									trigger.cancel();
-									player.markAuto("rs_xiejing_isTrue", "phaseDraw");
 								}
 								return;
 							}
 							const result2 = await player
 								.chooseTarget(
-									"###识心###是否令一名角色重铸一张牌？",
+									"###识心###请令一名角色重铸一张牌",
 									(card, player, target) => {
 										return target.countCards("hej") > 0 && target != get.event().banTarget;
 									},
@@ -2926,7 +2929,6 @@ export default function (): importExtensionConfig {
 							}
 							if (!allTargets.includes(player)) {
 								trigger.cancel();
-								player.markAuto("rs_xiejing_isTrue", "phaseDraw");
 							}
 						},
 					},
@@ -2952,6 +2954,7 @@ export default function (): importExtensionConfig {
 						async content(event, trigger, player) {
 							const current = trigger.player;
 							// const storage = player.getStorage("rs_xiejing_isTrue");
+							player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 							const storage = ["phaseZhunbei", "phaseJudge", "phaseDraw", "phaseUse", "phaseDiscard", "phaseJieshu"];
 							const result = await current
 								.chooseControl(storage)
@@ -2975,7 +2978,7 @@ export default function (): importExtensionConfig {
 						subSkill: {
 							isTrue: {
 								trigger: {
-									global: ["phaseZhunbeiSkipped", "phaseJudgeSkipped", "phaseDrawSkipped", "phaseUseSkipped", "phaseDiscardSkipped", "phaseJieshuSkipped", "phaseAfter"],
+									global: ["phaseZhunbeiSkipped", "phaseZhunbeiCancelled", "phaseJudgeSkipped", "phaseJudgeCancelled", "phaseDrawSkipped","phaseDrawCancelled", "phaseUseSkipped",  "phaseUseCancelled","phaseDiscardSkipped", "phaseDiscardCancelled", "phaseJieshuSkipped", "phaseJieshuCancelled", "phaseAfter"],
 								},
 								silent: true,
 								charlotte: true,
@@ -2991,7 +2994,7 @@ export default function (): importExtensionConfig {
 									player.markAuto("rs_xiejing_isTrue", event.triggername.slice(0, -7));
 								},
 								intro: {
-									content: "本回合跳过的阶段：$",
+									content: "本回合可以发动“谐境”",
 								},
 							},
 						},
@@ -3227,6 +3230,8 @@ export default function (): importExtensionConfig {
 									const { player, before2Phases, after2Phases } = get.event();
 									const num = player.countCards("hes");
 									if (!buttons.length) {
+										if (button.link == "phaseDraw" || button.link == "phaseDiscard") return false;
+										
 										if (before2Phases.includes(button.link)) return true;
 										return num > 0;
 									}
@@ -3269,6 +3274,7 @@ export default function (): importExtensionConfig {
 							}
 							const result = await player
 								.chooseTarget(`###跃踊###是否令一名角色在此回合结束后执行一个只有${get.translation(links)}的回合？`)
+								.set("forced", true)
 								.set("ai", target => {
 									const player = get.player();
 									return get.attitude(player, target);
@@ -3704,7 +3710,7 @@ export default function (): importExtensionConfig {
 								locked: true,
 								async cost(event, trigger, player) {
 									const maxTargets = player.countMark("rs_kanwei_effect");
-									event.result = await player
+									const result = await player
 										.chooseTarget(`###瞰威###是否为${get.translation(trigger.card)}改为指定${get.cnNumber(maxTargets)}个目标？`, [1, Infinity], function (card, player, target) {
 											const { targets, cardz } = get.event();
 											if (targets.includes(target)) return true;
@@ -3736,7 +3742,15 @@ export default function (): importExtensionConfig {
 											return eff + Math.random();
 										})
 										.forResult();
-								},
+								    if (!result || !result.bool) {
+											// 玩家点击了取消，在这里删除标记！
+											player.removeSkill("rs_kanwei_effect");
+											return; // 直接结束，不往下执行
+										}
+
+										// 玩家正常选择了目标，将结果传给后续
+										event.result = result;
+									},
 								filter(event, player) {
 									return event.card.name == "sha" || get.type(event.card) == "trick";
 								},
@@ -3767,17 +3781,16 @@ export default function (): importExtensionConfig {
 							if (event.parent.name == "rs_hunwang") return 0;
 							const storage = player.getStorage("rs_hunwang_used");
 							if (name == "damageAfter") {
-								if (storage.includes("选项三")) return 0;
 								const bool1 = !storage.includes("选项一") && player.countCards("she") >= 2;
 								const bool2 = !storage.includes("选项二");
 								return bool1 || bool2 ? event.num : 0;
 							} else if (name == "recastAfter") {
-								if (event.cards.map(c => c.original).filter(d => d == "h").length != 2 || storage.includes("选项一")) return false;
+								if (event.cards.map(c => c.original).filter(d => d == "h").length != 2) return false;
 								const bool1 = !storage.includes("选项二");
 								const bool2 = !storage.includes("选项三");
 								return bool1 || bool2 ? 1 : 0;
 							} else {
-								if (storage.includes("选项二") || event.num != 1) return false;
+								if (event.num != 1) return false;
 								const bool1 = !storage.includes("选项一") && player.countCards("she") >= 2;
 								const bool3 = !storage.includes("选项三");
 								return bool1 || bool3 ? 1 : 0;
@@ -4185,6 +4198,9 @@ export default function (): importExtensionConfig {
 										return 100 - get.value(card);
 									})
 									.forResult();
+								await player.showCards(next.cards);
+								player.addGaintag(next.cards, "rs_zhihuang_buff");
+								player.addTempSkill("rs_zhihuang_buff");
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项一");
@@ -4235,8 +4251,8 @@ export default function (): importExtensionConfig {
 									targetInRange: function(card, player, target) {
 										if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return true;
 									},
-									cardUsable: card => {
-										if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return Infinity;
+								cardUsable: card => {
+									if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return Infinity;
 									},
 								},
 							},
