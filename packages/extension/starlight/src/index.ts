@@ -4200,7 +4200,7 @@ export default function (): importExtensionConfig {
 									.forResult();
 								await player.showCards(next.cards);
 								player.addGaintag(next.cards, "rs_zhihuang_buff");
-								player.addTempSkill("rs_zhihuang_buff");
+								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项一");
@@ -4216,7 +4216,7 @@ export default function (): importExtensionConfig {
 								const remain = player.getCards("h", c => !next.cards.includes(c));
 								await player.showCards(remain);
 								player.addGaintag(remain, "rs_zhihuang_buff");
-								player.addTempSkill("rs_zhihuang_buff");
+								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项二");

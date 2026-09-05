@@ -11871,7 +11871,7 @@ export const Content: Record<string, ContentFuncByAll | ContentFuncsByAll> = {
 					if (card.gaintag && card.gaintag.length) {
 						event.gaintag_map[card.cardid] = card.gaintag.slice(0);
 						//仅移除非永久标记
-						const tags = card.gaintag.filter(tag => !tag.startsWith("eternal_"));
+						const tags = card.gaintag.filter(tag => (!tag.startsWith("eternal_") && tag != "rs_zhihuang_buff"));
 						tags.forEach(tag => card.removeGaintag(tag));
 					}
 
@@ -11933,7 +11933,7 @@ export const Content: Record<string, ContentFuncByAll | ContentFuncsByAll> = {
 					for (const card of cards) {
 						//cards[i].removeGaintag(true);
 						//仅移除非永久标记
-						const tags = card.gaintag.filter(tag => !tag.startsWith("eternal_"));
+						const tags = card.gaintag.filter(tag => (!tag.startsWith("eternal_") && tag != "rs_zhihuang_buff"));
 						tags.forEach(tag => card.removeGaintag(tag));
 						card.classList.remove("glow");
 						card.classList.remove("glows");
