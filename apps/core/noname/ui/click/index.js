@@ -409,14 +409,14 @@ export class Click {
 
 				for (var i = 0; i < button.info.length; i++) {
 					var node = ui.create.div(".menubutton.videonode.pointerdiv", uiintro.content);
-					ui.create.div(".menubutton.videoavatar", node).setBackground(button.info[i][1] || "caocao", "character");
+					ui.create.div(".menubutton.videoavatar", node).setBackground(button.info[i][1] || "karen1", "character");
 					if (button.info[i][4] == game.wsid) {
-						ui.create.div(".name", '<span class="thundertext thunderauto">' + (button.info[i][0] || "无名玩家"), node);
+						ui.create.div(".name", '<span class="thundertext thunderauto">' + (button.info[i][0] || "舞台B班"), node);
 						node.isme = true;
 					} else if (button.info[i][2]) {
-						ui.create.div(".name", button.info[i][0] || "无名玩家", node);
+						ui.create.div(".name", button.info[i][0] || "舞台B班", node);
 					} else {
-						ui.create.div(".name", '<span style="opacity:0.6">' + (button.info[i][0] || "无名玩家"), node);
+						ui.create.div(".name", '<span style="opacity:0.6">' + (button.info[i][0] || "舞台B班"), node);
 					}
 					//show ID
 					//ui.create.div('.videostatus',node,button.info[i][5]);

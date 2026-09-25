@@ -4040,7 +4040,7 @@ export class Library {
 				},
 				name_font: {
 					name: "人名字体",
-					init: "xingkai",
+					init: "NotoSerifCJKsc-Black",
 					unfrequent: true,
 					item: {},
 					textMenu: function (node, link) {
@@ -4088,7 +4088,7 @@ export class Library {
 				},
 				global_font: {
 					name: "界面字体",
-					init: "default",
+					init: "NotoSerifCJKsc-Black",
 					unfrequent: true,
 					item: {},
 					textMenu: function (node, link) {
@@ -7481,7 +7481,7 @@ export class Library {
 				},
 				connect_avatar: {
 					name: "联机头像",
-					init: "caocao",
+					init: "karen1",
 					input: true,
 					frequent: true,
 					onclick(item) {
@@ -7492,8 +7492,8 @@ export class Library {
 						const input = this;
 						const value = input.innerHTML.replace(/<br>/g, "").trim();
 						if (!value) {
-							const currentId = lib.config.connect_avatar || "caocao";
-							const currentName = lib.translate[currentId] || "曹操";
+							const currentId = lib.config.connect_avatar || "karen1";
+							const currentName = lib.translate[currentId] || "爱城华恋";
 							input.innerHTML = currentName;
 							return;
 						}
@@ -7509,8 +7509,8 @@ export class Library {
 						}
 						if (matches.length === 0) {
 							alert(`未找到武将"${value}"`);
-							const currentId = lib.config.connect_avatar || "caocao";
-							const currentName = lib.translate[currentId] || "曹操";
+							const currentId = lib.config.connect_avatar || "karen1";
+							const currentName = lib.translate[currentId] || "爱城华恋";
 							input.innerHTML = currentName;
 						} else if (matches.length === 1) {
 							const id = matches[0];
@@ -8111,14 +8111,13 @@ export class Library {
 					name: "游戏模式",
 					init: "normal",
 					item: {
-						normal: "新1v1",
 						dianjiang: "点将单挑",
-						changban: "血战长坂坡",
+						//changban: "血战长坂坡",
 						wuxianhuoli: "无限火力",
 					},
 					restart: true,
 					frequent: true,
-					intro: "血战长坂坡和无限火力模式详见帮助",
+					intro: "无限火力模式详见帮助",
 				},
 				connect_enable_jin: {
 					name: "启用晋势力武将",
@@ -8182,14 +8181,13 @@ export class Library {
 					name: "游戏模式",
 					init: "normal",
 					item: {
-						normal: "新1v1",
 						dianjiang: "点将单挑",
-						changban: "血战长坂坡",
+						//changban: "血战长坂坡",
 						wuxianhuoli: "无限火力",
 					},
 					restart: true,
 					frequent: true,
-					intro: "血战长坂坡和无限火力模式详见帮助",
+					intro: "无限火力模式详见帮助",
 				},
 				enable_jin: {
 					name: "启用晋势力武将",

@@ -844,7 +844,7 @@ export class Get {
 		return obj.filter(element => element == item).length;
 	}
 	connectNickname() {
-		return typeof lib.config.connect_nickname == "string" ? lib.config.connect_nickname.slice(0, 12) : "无名玩家";
+		return typeof lib.config.connect_nickname == "string" ? lib.config.connect_nickname.slice(0, 12) : "舞台B班";
 	}
 	/**
 	 * 返回智囊牌名组成的数组

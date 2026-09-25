@@ -244,6 +244,7 @@
 	transform: translate(-50%, -50%);
 	animation: dialog_scale_in 0.3s;
 	-webkit-animation: dialog_scale_in 0.3s;
+	background-image: url(/extension/starlight/image/ui/charactercard.png) !important;
 }
 
 /* 武将头像 */
@@ -262,7 +263,7 @@
 	bottom: 10px;
 	line-height: 30px;
 	padding: 0;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .menubg.charactercard > .menubutton.ban {
@@ -529,6 +530,7 @@
 	padding-right: 15px;
 	position: relative;
 	text-align: center;
+	background-image:url('/extension/starlight/image/ui/menutab.png') !important;
 
 	border-width: 0 0 1px;
 	border-style: solid;
@@ -589,6 +591,7 @@
 	width: 34%;
 	left: 0;
 	overflow: scroll;
+	background-image:url('/extension/starlight/image/ui/leftpane.png') !important;
 }
 
 .menu.main > .menu-content > div > .left.pane > div {
@@ -597,7 +600,7 @@
 	margin-left: 10px;
 	transition: all 0.3s;
 	height: 23px;
-	font-size: 26px;
+	font-size: 20px;
 	line-height: 26px;
 	white-space: nowrap;
 }
@@ -607,8 +610,8 @@
 }
 
 .menu.main > .menu-content > div > .left.pane > .lefttext {
-	font-family: "xinwei";
-	font-size: 20px;
+	font-family: "NotoSerifCJKsc-Black";
+	font-size: 16px;
 }
 
 .menu.main > .menu-content > div > .left.pane > div:last-child {
@@ -623,6 +626,7 @@
 	left: 34%;
 	width: 66%;
 	overflow: scroll;
+	background-image:url('/extension/starlight/image/ui/rightpane.png') !important;
 }
 
 .menu.main > .menu-content > div > .right.pane > div {
@@ -1169,7 +1173,7 @@ input.fileinput::-webkit-file-upload-button {
 .menubutton.large {
 	font-size: 30px;
 	line-height: 30px;
-	font-family: "STXinwei", "xinwei";
+	font-family: "NotoSerifCJKsc-Black";
 }
 
 .menubutton.round {

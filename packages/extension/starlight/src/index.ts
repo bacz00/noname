@@ -399,7 +399,7 @@ export default function (): importExtensionConfig {
 						sex: "female",
 						group: "frontier",
 						hp: 3,
-						skills: ["rs_yueyue", "rs_pojing"],
+						skills: ["rs_yueyue", "rs_yueyue_clear", "rs_pojing"],
 						dieAudios: ["ext:starlight/audio/die:true"],
 					}),
 					rs_misora1: new lib.element.Character({
@@ -643,6 +643,8 @@ export default function (): importExtensionConfig {
 					rs_zhuwang_info: "出牌阶段开始时，你可以令你本阶段使用【杀】的：1.目标数+1；2.额定使用次数+1；若你选择了：一项：此项再+1；两项：你受到无来源的一点火焰伤害。",
 					rs_zhihuang: "稚皇",
 					rs_zhihuang_info: "出牌阶段各限一次，或当你受到伤害后，你可以将手牌重铸一张或重铸至一张(须展示此牌)，令此牌本回合无距离或次数限制。",
+					eternal_rs_zhihuang_buff_range: "不限距离",
+					eternal_rs_zhihuang_buff_nocount: "不限次数",
 					rs_ruowang: "若王",
 					rs_ruowang_info: "当你因技能重铸牌时，你可以令一名角色交给你X张牌，然后交给其X张被重铸的牌(X为你本回合重铸牌的次数)。",
 					rs_anji: "闇记",
@@ -659,7 +661,7 @@ export default function (): importExtensionConfig {
 					rs_weilang_info: "每回合各限一次，当你造成/受到伤害时，你可以令一名角色横置或重置。",
 					rs_mozheng: "末争",
 					// rs_mozheng_info: "你失去过手牌的回合结束时，你可亮出并使用牌堆底的牌；你获得过手牌的技能结束时，你可观看牌堆顶三张牌并以任意顺序置于牌堆顶或牌堆底。",
-					rs_mozheng_info: "你失去过手牌的阶段结束时，你可亮出并使用牌堆底的牌；你获得过手牌的阶段结束时，你可观看牌堆顶三张牌并以任意顺序置于牌堆顶或牌堆底。",
+					rs_mozheng_info: "你失去过手牌的阶段结束时，你可亮出并使用牌堆底的牌；你获得过手牌的阶段结束时，你可观看牌堆顶两张牌并以任意顺序置于牌堆顶或牌堆底。",
 					rs_weijiu: "危鸠",
 					rs_weijiu_info: "弃牌阶段，或当你受到伤害时，你可以令你本回合失去至多两个技能并摸等量张牌，然后弃你拥有的技能数张牌。",
 					rs_xiayi: "黠艺",
@@ -729,9 +731,18 @@ export default function (): importExtensionConfig {
 						animationStr: "再生産",
 						derivation: "rs_xingzui",
 						content: async (event, _trigger, player) => {
+
+						game.broadcastAll(() => {
+							_status.tempMusic = "silence";
+							game.playBackgroundMusic();
+						});
 							// 如果是ai，直接跳过交互
 							if (_status.connectMode || player == game.me) {
 								if (_status.connectMode && !game.online && player != game.me) {
+									game.broadcastAll(() => {
+                    					_status.tempMusic = "music_star_divine";
+                    					game.playBackgroundMusic();
+                					});
 									// 客机
 									if (player.isOnline()) {
 										await new Promise((resolve) =>
@@ -740,9 +751,12 @@ export default function (): importExtensionConfig {
 													(player) => {
 														const eventId = get.id();
 														ui.timer?.show();
+														game.dynamicStyle.add("#control > .control:has(img)", { transform: "translateX(-108px) translateY(-65px) !important" });
 														player.chooseControl({
-															controls: ["アタシ、再生産"]
+															controls: ['<img src="extension/starlight/image/saiseisan.png" style="width: 216px; height: 80px;" />']
 														}).set("id", eventId);
+
+														game.dynamicStyle.remove("#control > .control:has(img)");
 														game.resume();
 														game.countDown(3, () => {
 															lib.message.client.cancel(eventId);
@@ -762,11 +776,17 @@ export default function (): importExtensionConfig {
 										lib.message.client.cancel(eventId);
 										ui.timer?.hide();
 									});
+									game.dynamicStyle.add("#control > .control:has(img)", { transform: "translateX(-108px) translateY(-65px) !important" });
 									await player.chooseControl({
-										controls: ["アタシ、再生産"]
+										controls: ['<img src="extension/starlight/image/saiseisan.png" style="width: 216px; height: 80px;" />']
 									}).set("id", eventId);
 								}
 							}
+
+							game.broadcastAll(() => {
+								_status.tempMusic = "music_star_divine";
+								game.playBackgroundMusic();
+							});
 
 							lib.skill[event.name].skillAnimation = true;
 							player.trySkillAnimate(event.name, lib.skill[event.name].animationStr ?? "", player.checkShow(event.name));
@@ -810,11 +830,10 @@ export default function (): importExtensionConfig {
 						filter: (event, player) =>	
 							event.name == (player.storage.rs_xingzui ? "damage" : "recover") && (!event.card || !event.cards?.length),
 						content: async (event, trigger, player) => {
-							const extPath = lib.assetURL + "extension/starlight/audio/";
 							if (player.storage.rs_xingzui) {
-								new Audio(extPath + "xingzui_yin.mp3").play();
+								game.playAudio("../extension/starlight/audio/xingzui_yin.mp3");
 							} else {
-								new Audio(extPath + "xingzui_yang.mp3").play();
+								game.playAudio("../extension/starlight/audio/xingzui_yang.mp3");
 							}
 							player.changeZhuanhuanji(event.name);
 							trigger.num++;
@@ -1169,7 +1188,7 @@ export default function (): importExtensionConfig {
 												}
 												return 8;
 											} else {
-												return button.link == "sha" && player.hasUseTarget({ name: "sha" }, true, false) ? 0.5 : 0;
+												return button.link == "juedou" && player.hasUseTarget({ name: "juedou" }, true, false) ? 0.5 : 0;
 											}
 										})
 										.forResult();
@@ -1263,8 +1282,7 @@ export default function (): importExtensionConfig {
 									},
 									viewAs: { name: cardName },
 									async precontent(event, trigger, player) {
-										const extPath = lib.assetURL + "extension/starlight/audio/";
-										 new Audio(extPath + "juexing.mp3").play();
+										game.playAudio("../extension/starlight/audio/juexing.mp3");
 										player.tempBanSkill("rs_juexing", "roundStart");
 										const card = event.result.card;
 										if (!card) return;
@@ -2013,11 +2031,10 @@ export default function (): importExtensionConfig {
 							player.addTempSkill("rs_dieyong_used");
 							const color = get.color(cards[0], player);
 							const name = color == "red" ? "wugu" : "juedou";
-							const extPath = lib.assetURL + "extension/starlight/audio/";
 							if (color == "red") {
-								new Audio(extPath + "dieyong_wugu.mp3").play();
+								game.playAudio("../extension/starlight/audio/dieyong_wugu.mp3");
 							} else {
-								new Audio(extPath + "dieyong_juedou.mp3").play();
+								game.playAudio("../extension/starlight/audio/dieyong_juedou.mp3");
 							}
 							await player.useCard({ name }, event.targets);
 						},
@@ -2054,7 +2071,14 @@ export default function (): importExtensionConfig {
 							return event.player.group == player.group;
 						},
 						skillAnimation: true,
+
 						async content(event, trigger, player) {
+
+						game.broadcastAll(() => {
+							_status.tempMusic = "music_lmg";
+							game.playBackgroundMusic();
+						});
+
 							player.awakenSkill(event.name);
 							player.addSkill("rs_linyunEffect");
 							await trigger.player.recover();
@@ -2275,6 +2299,7 @@ export default function (): importExtensionConfig {
 									return player.countMark("rs_xiaying_draw") > 0;
 								},
 								async content(event, trigger, player) {
+									game.playAudio("../extension/starlight/audio/xiaying_endphase.mp3");
 									const num = player.countMark("rs_xiaying_draw");
 									await player.draw(num);
 								},
@@ -2380,7 +2405,7 @@ export default function (): importExtensionConfig {
 								charlotte: true,
 								intro: {
 									content(s, player) {
-										let str = "本回合触发过时机：";
+										let str = "本轮触发过时机：";
 										let strl = [];
 										if (s.includes("chooseToUse")) strl.push("出牌阶段");
 										if (s.includes("phaseJieshuBegin")) strl.push("结束阶段");
@@ -2439,8 +2464,7 @@ export default function (): importExtensionConfig {
 									selectCard: 0,
 									viewAs: { name: links[0][2], nature: links[0][3] },
 									async precontent(event, _, player) {
-										const extPath = lib.assetURL + "extension/starlight/audio/";
-										new Audio(extPath + "canqiao.mp3").play();
+										game.playAudio("../extension/starlight/audio/canqiao.mp3");
 										const name = event.result.card.name;
 										const controls = ["选项一", "选项二", "选项三", "选项四"];
 										const list = ["受到一点雷电伤害", "令当前回合角色摸两张牌", "重铸三种类型的牌", "展示四张不同花色的手牌"];
@@ -2818,23 +2842,23 @@ export default function (): importExtensionConfig {
 								player.tempBanSkill("rs_yueyue", "roundStart");
 							}
 						},
-						group: ["rs_yueyue_clear"],
-						subSkill: {
-							clear: {
-								silent: true,
-								charlotte: true,
-								trigger: {
-									player: "phaseAfter",
-								},
-								filter(event, player) {
-									return player.getStorage("rs_pojing").length > 0;
-								},
-								async content(event, trigger, player) {
-									player.unmarkAuto("rs_pojing", player.getStorage("rs_pojing"));
-								},
-							},
+					},
+
+					rs_yueyue_clear: {
+						silent: true,
+						charlotte: true,
+						trigger: {
+							player: "phaseAfter", 
+						},
+						filter(event, player) {
+							return player.getStorage("rs_pojing").length > 0;
+						},
+						async content(event, trigger, player) {
+							
+							player.unmarkAuto("rs_pojing", player.getStorage("rs_pojing"));
 						},
 					},
+
 					rs_pojing: {
 						audio: "ext:starlight/audio/skill:true",
 						trigger: {
@@ -2844,7 +2868,7 @@ export default function (): importExtensionConfig {
 							return player.getStorage("rs_pojing").length > 0;
 						},
 						intro: {
-							content: "“破境”回合拥有：$",
+							content: "“跃月”跳过了：$",
 						},
 						async cost(event, trigger, player) {
 							event.result = await player
@@ -3048,11 +3072,10 @@ export default function (): importExtensionConfig {
 										const name = lib.skill.rs_jiancan_backup.rule;
 										const skill = name == "jiu" ? "rs_jiancan_rule1" : "rs_jiancan_rule2";
 										player.addTempSkill(skill);
-										const extPath = lib.assetURL + "extension/starlight/audio/";
 										if (name == "jiu") {
-											new Audio(extPath + "rs_jiancan_jiu.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_jiancan_jiu.mp3");
 										} else {
-											new Audio(extPath + "rs_jiancan_juedou.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_jiancan_juedou.mp3");
 										}
 
 										const me = player;
@@ -4015,13 +4038,12 @@ export default function (): importExtensionConfig {
 						},
 						async content(event, trigger, player) {
 							const control = event.cost_data;
-							const extPath = lib.assetURL + "extension/starlight/audio/";
 							if (control == "选项一") {
-								new Audio(extPath + "balan_a.mp3").play(); 
+								game.playAudio("../extension/starlight/audio/balan_a.mp3");
 								await player.chooseToDiscard(2, true, "she");
 								trigger.num += 1;
 							} else {
-								new Audio(extPath + "balan_b.mp3").play();  	
+								game.playAudio("../extension/starlight/audio/balan_b.mp3");  	
 								await player.draw(2);
 								player.tempBanSkill("rs_balan");
 							}
@@ -4198,9 +4220,21 @@ export default function (): importExtensionConfig {
 										return 100 - get.value(card);
 									})
 									.forResult();
-								await player.showCards(next.cards);
-								player.addGaintag(next.cards, "rs_zhihuang_buff");
+								await player.showCards(next.cards, "###稚皇###请令此牌：");
+								const buffResult = await player.chooseControl("无距离限制", "无次数限制")
+									.set("prompt", "请令此牌：")
+									.forResult();
+								
+								if (buffResult.control === "无距离限制") {
+									player.addGaintag(next.cards, "eternal_rs_zhihuang_buff_range");
+									game.log(next.cards, "无距离限制");
+								} else {
+									player.addGaintag(next.cards, "eternal_rs_zhihuang_buff_nocount");
+									game.log(next.cards, "无次数限制");
+								}
+
 								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
+								game.players.forEach(player => player.addTempSkill("rs_zhihuang_effect"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项一");
@@ -4214,9 +4248,20 @@ export default function (): importExtensionConfig {
 									})
 									.forResult();
 								const remain = player.getCards("h", c => !next.cards.includes(c));
-								await player.showCards(remain);
-								player.addGaintag(remain, "rs_zhihuang_buff");
+								await player.showCards(remain, "###稚皇###请令此牌：");
+								const buffResult = await player.chooseControl("无距离限制", "无次数限制")
+									.set("prompt", "请令此牌：")
+									.forResult();
+								
+								if (buffResult.control === "无距离限制") {
+									player.addGaintag(remain, "eternal_rs_zhihuang_buff_range");
+									game.log(remain, "无距离限制");
+								} else {
+									player.addGaintag(remain, "eternal_rs_zhihuang_buff_nocount");
+									game.log(remain, "无次数限制");
+								}
 								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
+								game.players.forEach(player => player.addTempSkill("rs_zhihuang_effect"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项二");
@@ -4234,6 +4279,7 @@ export default function (): importExtensionConfig {
 								player: 5,
 							},
 						},
+
 						subSkill: {
 							used: {
 								charlotte: true,
@@ -4244,16 +4290,48 @@ export default function (): importExtensionConfig {
 							},
 							buff: {
 								onremove(player) {
-									player.removeGaintag("rs_zhihuang_buff");
+									player.removeGaintag('eternal_rs_zhihuang_buff_range');
+									player.removeGaintag('eternal_rs_zhihuang_buff_nocount');
 								},
 								charlotte: true,
 								mod: {
 									targetInRange: function(card, player, target) {
-										if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return true;
-									},
-								cardUsable: card => {
-									if (card.cards?.every(i => i.hasGaintag("rs_zhihuang_buff"))) return Infinity;
-									},
+										if (card.cards?.every(i => i.hasGaintag("eternal_rs_zhihuang_buff_range"))) return true;
+									},			
+									cardUsable(card) {
+										if (card.cards?.every(i => i.hasGaintag("eternal_rs_zhihuang_buff_nocount"))) {
+											return Infinity;
+										}
+									}
+								},
+							},
+
+							effect: {
+								sub: true,
+								charlotte: true,
+								forced: true,
+								popup: false,
+								trigger: {
+									player: "useCard1",
+								},
+								filter: function(event, player) {
+									return (
+										event.addCount !== false &&
+										event.card.isCard &&
+										event.cards?.length == 1 &&
+										player.hasHistory("lose", evt => {
+											if ((evt.relatedEvent || evt.getParent()) !== event) return false;
+											return evt.hs.length == 1 && Object.values(evt.gaintag_map).flat().includes("eternal_rs_zhihuang_buff_nocount");
+										})
+									);
+								},
+								content: async function(event, trigger, player) {
+									trigger.addCount = false;
+									const stat = player.getStat().card, name = trigger.card.name;
+									if (typeof stat[name] == "number") {
+										stat[name]--;
+									}
+									game.log(trigger.card, "不计入次数");
 								},
 							},
 						},
@@ -4627,7 +4705,6 @@ export default function (): importExtensionConfig {
 						],
 						async content(event, trigger, player) {
 							const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
-							const extPath = lib.assetURL + "extension/starlight/audio/"; 
 
 							while (true) {
 								const targets = game.filterPlayer(p => (p === player ? filter0(player) : filter1(player, p) || filter2(player, p)));
@@ -4700,15 +4777,15 @@ export default function (): importExtensionConfig {
 										const links = resultB.links;
 										if (links.includes(0) && player.countCards("h") < 3) {
 											await player.drawTo(3);
-											new Audio(extPath + "rs_zhongshu_draw.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_draw.mp3");
 										}
 										if (links.includes(1) && player.isDamaged()) {
 											await player.recover();
-											new Audio(extPath + "rs_zhongshu_recover.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_recover.mp3");
 										}
 										if (links.includes(2)) {
 											await player.damage(1, "thunder", player);
-											new Audio(extPath + "rs_zhongshu_damage.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_damage.mp3");
 										}
 										player.markAuto("rs_zhongshu_used", links);
 										player.addTempSkill("rs_zhongshu_used");
@@ -4718,15 +4795,15 @@ export default function (): importExtensionConfig {
 										player.markAuto("rs_zhongshu_used", [link]);
 										if (link == 0) {
 											await target.drawTo(3);
-											new Audio(extPath + "rs_zhongshu_draw.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_draw.mp3");
 										}
 										if (link == 1) {
 											await target.recover();
-											new Audio(extPath + "rs_zhongshu_recover.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_recover.mp3");
 										}
 										if (link == 2) {
 											await target.damage(1, "thunder", player);
-											new Audio(extPath + "rs_zhongshu_damage.mp3").play();
+											game.playAudio("../extension/starlight/audio/rs_zhongshu_damage.mp3");
 										}
 										break;
 									}
@@ -4795,7 +4872,7 @@ export default function (): importExtensionConfig {
 						frequent: true,
 						async content(event, trigger, player) {
 							if (player.getHistory("gain", evt => evt.getParent(trigger.name) == trigger).length) {
-								await player.chooseToGuanxing(3);
+								await player.chooseToGuanxing(2);
 							}
 							if (player.getHistory("lose", evt => evt.getParent(trigger.name) == trigger && evt.hs.length).length) {
 								const cards = get.bottomCards(1, true);
@@ -5078,9 +5155,8 @@ export default function (): importExtensionConfig {
 										return 5.6 - get.value(card);
 									},
 									async precontent(event, trigger, player) {
-										const extPath = lib.assetURL + "extension/starlight/audio/";
 										const randomNum = Math.random() < 0.5 ? 1 : 2;
-										new Audio(extPath + "rs_weizhi" + randomNum + ".mp3").play();
+										game.playAudio("../extension/starlight/audio/rs_weizhi" + randomNum + ".mp3");
 										
 										if (event.result.card.nature == "thunder") {
 											event.getParent().addCount = false;
@@ -5130,7 +5206,7 @@ export default function (): importExtensionConfig {
 							return true;
 						},
 						intro: {
-							content: "只能以多换少",
+							content: "你的“青谐”仅能以多换少",
 						},
 						manualConfirm: true,
 						async content(event, trigger, player) {
@@ -5326,8 +5402,6 @@ export default function (): importExtensionConfig {
 						},
 						direct: true,
 						async content(event, trigger, player) {
-							const extPath = lib.assetURL + "extension/starlight/audio/";
-							new Audio(extPath + "chilan.mp3").play();
 							player.addTempSkill("rs_chilan_lose", "useCardAfter");
 						},
 						getNum(player) {
@@ -5352,6 +5426,7 @@ export default function (): importExtensionConfig {
 									return `是否将手牌数调整至${get.cnNumber(lib.skill.rs_chilan.getNum(player))}张？`;
 								},
 								async content(event, trigger, player) {
+									game.playAudio("../extension/starlight/audio/chilan.mp3");
 									const num = lib.skill.rs_chilan.getNum(player);
 									const hs = player.countCards("h");
 									if (hs < num) {

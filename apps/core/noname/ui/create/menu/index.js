@@ -323,11 +323,11 @@ export function createConfig(config, position) {
 			}
 		};
 		if (config.name == "联机昵称") {
-			input.innerHTML = config.init || "无名玩家";
+			input.innerHTML = config.init || "舞台B班";
 			input.onblur = function () {
 				input.innerHTML = input.innerHTML.replace(/<br>/g, "");
 				if (!input.innerHTML || get.is.banWords(input.innerHTML)) {
-					input.innerHTML = "无名玩家";
+					input.innerHTML = "舞台B班";
 				}
 				input.innerHTML = input.innerHTML.slice(0, 12);
 				game.saveConfig("connect_nickname", input.innerHTML);
@@ -335,8 +335,8 @@ export function createConfig(config, position) {
 			};
 		} else if (config.name == "联机头像") {
 			// 显示当前配置的武将名称（直接使用翻译，不额外添加前缀）
-			const currentId = lib.config.connect_avatar || config.init || "caocao";
-			input.innerHTML = lib.translate[currentId] || "曹操";
+			const currentId = lib.config.connect_avatar || config.init || "karen1";
+			input.innerHTML = lib.translate[currentId] || "爱城华恋";
 			input.onblur = config.onblur;
 		} else if (config.name == "联机大厅") {
 			input.innerHTML = config.init || lib.hallURL;

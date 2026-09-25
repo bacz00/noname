@@ -775,7 +775,6 @@ export class Game {
 			var currentcard = ui.discardPile.childNodes[i];
 			currentcard.vanishtag.length = 0;
 			currentcard.clearKnowers();
-			currentcard.gaintag = currentcard.gaintag.filter(tag => tag != "rs_zhihuang_buff")
 			if (get.info(currentcard).vanish || currentcard.storage.vanish) {
 				currentcard.remove();
 				continue;

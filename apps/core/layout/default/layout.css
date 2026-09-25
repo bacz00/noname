@@ -1755,14 +1755,23 @@ div.select-all:not(.card):not(.player) {
 	letter-spacing: -0.2em;
 }
 .marks > .card > .background.skillmark {
-	font-family: "huangcao", "xinwei";
-	padding-top: 4px;
+	font-family: "NotoSerifCJKsc-Black";
+	font-size: 16px;
+	padding-top: 2px;
+
+	/*background-image: url('/extension/starlight/image/group/lin-skillmark.png') !important;*/
+
+	background-size: 100% 100% !important; 
+    background-repeat: no-repeat !important;
+
+	background-color: transparent !important;
+
 }
 .marks > .card.overflowmark {
 	overflow: visible;
 }
 .marks > div > .markcount.menubutton {
-	font-family: "xinwei";
+	font-family: "NotoSerifCJKsc-Black";
 	font-size: 9px;
 	width: 12px;
 	height: 12px;
@@ -2056,7 +2065,12 @@ div.select-all:not(.card):not(.player) {
 	font-size: 16px;
 }
 
-.button.character,
+.button.character {
+	width: 90px;
+	height: 120px;
+	position: relative;
+	margin: 6px;
+}
 .button.card {
 	width: 90px;
 	height: 90px;
@@ -2067,13 +2081,20 @@ div.select-all:not(.card):not(.player) {
 	font-size: 14px;
 }
 .button.character > .name {
-	left: 5px;
-	top: 22px;
+	left: -2px;
+	top: 20px !important;
+	font-size: 15px;
 	max-height: 68px;
 	overflow: hidden;
 	white-space: nowrap;
 	writing-mode: vertical-rl;
 	-webkit-writing-mode: vertical-rl;
+
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px  1px 0 #000,
+	1px  1px 0 #000;
 }
 .button.character > .hp {
 	left: 5px;
@@ -2116,7 +2137,7 @@ div.select-all:not(.card):not(.player) {
 }
 .button.newstyle > .name {
 	top: 8px;
-	max-height: 84px;
+	max-height: 100px;
 }
 .button.newstyle > .name.long {
 	top: 6px;
@@ -2322,19 +2343,25 @@ div.select-all:not(.card):not(.player) {
 .player > .name {
 	left: 16px;
 	top: 24px;
-	font-size: 20px;
+	font-size: 18px;
 	font-family: "xinwei";
 	white-space: nowrap;
 	writing-mode: vertical-rl;
 	-webkit-writing-mode: vertical-rl;
+
+	text-shadow:
+	-1px -1px 0 #000,
+	1px -1px 0 #000,
+	-1px  1px 0 #000,
+	1px  1px 0 #000;
 }
 .player > .name.name2 {
 	left: 81px;
 }
 
 #arena.slim_player .player > .name {
-	left: 13px;
-	top: 21px;
+	left: 5px;
+	top: 45px;
 }
 #arena.slim_player .player > .name.name2 {
 	left: 78px;
@@ -2358,14 +2385,14 @@ div.select-all:not(.card):not(.player) {
 }
 
 .button.character > .name {
-	font-family: "xinwei";
+	font-family: "NotoSerifCJKsc-Black";
 }
 .player > .intro {
 	top: 87px;
 	left: 18px;
 }
 .player > .turned {
-	font-family: "xinwei";
+	font-family: "NotoSerifCJKsc-Black";
 	width: 100%;
 	height: 100%;
 	line-height: 50px;

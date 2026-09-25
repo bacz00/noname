@@ -89,7 +89,7 @@ window.noname_package = {
 		// 	leader: "战棋君主",
 		// },
 		single: {
-			normal: "新1v1",
+			dianjiang2: "点将单挑",
 		},
 	},
 	background: {
@@ -107,6 +107,7 @@ window.noname_package = {
 		// effect_tuishouBGM: "势魏延退守",
 	},
 	font: {
+		"NotoSerifCJKsc-Black": "思源宋体",
 		xiaozhuan: "方正小篆体",
 		xinwei: "华文新魏_GBK",
 		huangcao: "方正黄草_GBK",

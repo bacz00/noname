@@ -3199,7 +3199,12 @@ export default () => {
 								game.showIdentity();
 							}
 							if (game.zhu && game.zhu.isAlive() && get.population("nei") === 1 && get.config("nei_fullscreenpop")) {
-								game.me.$fullscreenpop('<span style="font-family:xinwei"><span data-nature="fire">主公</span><span data-nature="soil"> vs </span><span data-nature="thunder">内奸</span></span>', null, null, false);
+								game.broadcastAll(() => {
+        							_status.tempMusic = "music_sword_of_revenge";
+        							game.playBackgroundMusic();
+    							});
+
+								game.me.$fullscreenpop('<span style="font-family: DidotLTStd-Roman; color:#f9555c;">Show Must Go On!</span>', null, null, false);
 							}
 						});
 					}
