@@ -53,6 +53,7 @@ export default () => {
 				node.style.webkitUserSelect = "text";
 				node.style.textAlign = "center";
 				node.style.overflow = "hidden";
+				node.textContent = "wss://starlight-server.bacz.top";
 
 				var connect = function (e) {
 					event.textnode.textContent = "正在连接...";
