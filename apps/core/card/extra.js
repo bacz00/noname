@@ -566,7 +566,10 @@ game.import("card", function () {
 						if (get.is.changban()) {
 							player.addTempSkill("bingliang_changban");
 						} else {
-							player.skip("phaseDraw");
+							let evt = _status.event.getParent("phase");
+							if (evt && evt.phaseList.indexOf("phaseDraw") > evt.num) {
+								player.skip("phaseDraw");
+							}
 						}
 					}
 				},

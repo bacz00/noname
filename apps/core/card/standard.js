@@ -3232,7 +3232,10 @@ game.import("card", function () {
 				},
 				effect() {
 					if (result.bool === false) {
-						player.skip("phaseUse");
+						let evt = _status.event.getParent("phase");
+						if (evt && evt.phaseList.indexOf("phaseUse") > evt.num) {
+							player.skip("phaseUse");
+						}
 					}
 				},
 				ai: {
