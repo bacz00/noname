@@ -642,11 +642,10 @@ export default function (): importExtensionConfig {
 					rs_zhuwang: "逐王",
 					rs_zhuwang_info: "出牌阶段开始时，你可以令你本阶段使用【杀】的：1.目标数+1；2.额定使用次数+1；若你选择了：一项：此项再+1；两项：你受到无来源的一点火焰伤害。",
 					rs_zhihuang: "稚皇",
-					rs_zhihuang_info: "出牌阶段各限一次，或当你受到伤害后，你可以将手牌重铸一张或重铸至一张(须展示此牌)，令此牌本回合无距离或次数限制。",
-					eternal_rs_zhihuang_buff_range: "不限距离",
-					eternal_rs_zhihuang_buff_nocount: "不限次数",
+					rs_zhihuang_info: "出牌阶段各限一次，或当你受到伤害后，你可以将手牌重铸一张，或重铸至一张。",
+					eternal_rs_ruowang_buff_nocount: "不限次数",
 					rs_ruowang: "若王",
-					rs_ruowang_info: "当你因技能重铸牌时，你可以令一名角色交给你X张牌，然后交给其X张被重铸的牌(X为你本回合重铸牌的次数)。",
+					rs_ruowang_info: "当你因技能重铸牌时，你可以令一名角色交给你X张牌，然后交给其X张被重铸的牌(X为你本回合重铸牌的次数)，你因此交出的牌本回合无次数限制。",
 					rs_anji: "闇记",
 					rs_anji_info: "每回合限一次，出牌阶段，或当与你距离为1以内的角色执行一项后，你可以执行未被执行的所有项：1.摸两张牌；2.将一张牌置于牌堆底；3.受到一点属性伤害。",
 					rs_yinwang: "隐王",
@@ -740,9 +739,9 @@ export default function (): importExtensionConfig {
 							if (_status.connectMode || player == game.me) {
 								if (_status.connectMode && !game.online && player != game.me) {
 									game.broadcastAll(() => {
-										_status.tempMusic = "music_star_divine";
-										game.playBackgroundMusic();
-									});
+                    					_status.tempMusic = "music_star_divine";
+                    					game.playBackgroundMusic();
+                					});
 									// 客机
 									if (player.isOnline()) {
 										await new Promise((resolve) =>
@@ -1402,7 +1401,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangxing: {
-						audio: "ext:starlight/audio/skill:true",
+                        audio: "ext:starlight/audio/skill:true",
 						mod: {
 							cardnumber(card, player) {
 								const num = card.number;
@@ -2747,7 +2746,7 @@ export default function (): importExtensionConfig {
 								await player.gain(cards2, "gain2");
 								for (const card of cards2) {
 									if (card._name) card.name = card._name;
-									if (card._nature) card.nature = card._nature;
+                                    if (card._nature) card.nature = card._nature;
 									if (player.hasUseTarget(card, true, false)) {
 										await player.chooseUseTarget(card, true, false);
 									}
@@ -3009,9 +3008,9 @@ export default function (): importExtensionConfig {
 								charlotte: true,
 								async content(event, trigger, player) {
 									if (event.triggername == "turnStart") {
-									player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
-									return;
-									}
+                                    player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
+                                    return;
+                                    }
 									if (event.triggername == "phaseAfter") {
 										player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 										return;
@@ -3444,9 +3443,9 @@ export default function (): importExtensionConfig {
 						enable: ["chooseToUse", "chooseToRespond"],
 
 						usable(skill, player) {
-							if (!player) player = get.player();
-							return player.storage.rs_zhenjing_usable || 0;
-						},
+        					if (!player) player = get.player();
+        					return player.storage.rs_zhenjing_usable || 0;
+    					},
 
 						getLockedSkills(player) {
 							if (!player) player = get.player();
@@ -3559,29 +3558,29 @@ export default function (): importExtensionConfig {
 						group: ["rs_zhenjing_recover", "rs_zhenjing_refresh"],
 						subSkill: {
 							refresh: {
-								trigger: {
-									global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
-								},
-								silent: true,
-								charlotte: true,
-								filter(event, player, name) {
-									// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
-									if (name == "addSkill") {
-										const skillName = event.skill || event.name;
-										const info = get.info(skillName);
-										// 如果不是锁定技，直接返回 false，不处理
-										return info && !info.charlotte && (info.forced || info.locked);
-									}
-									// 回合开始直接放行
-									return true;
-								},
-								async content(event, trigger, player) {
-									// 重新计算当前的锁定技数量，并直接覆盖 storage
-									const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
-									player.storage.rs_zhenjing_usable = lockedSkills.length;
-									player.syncStorage("rs_zhenjing_usable");
-								},
-							},
+            					trigger: {
+                					global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
+           						},
+            					silent: true,
+            					charlotte: true,
+            					filter(event, player, name) {
+                					// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
+                					if (name == "addSkill") {
+                    					const skillName = event.skill || event.name;
+                    					const info = get.info(skillName);
+                    					// 如果不是锁定技，直接返回 false，不处理
+                    					return info && !info.charlotte && (info.forced || info.locked);
+                					}
+                					// 回合开始直接放行
+                					return true;
+           						},
+            					async content(event, trigger, player) {
+                					// 重新计算当前的锁定技数量，并直接覆盖 storage
+                					const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
+                					player.storage.rs_zhenjing_usable = lockedSkills.length;
+                					player.syncStorage("rs_zhenjing_usable");
+            					},
+        					},
 							recover: {
 								charlotte: true,
 								trigger: {
@@ -3766,7 +3765,7 @@ export default function (): importExtensionConfig {
 											return eff + Math.random();
 										})
 										.forResult();
-									if (!result || !result.bool) {
+								    if (!result || !result.bool) {
 											// 玩家点击了取消，在这里删除标记！
 											player.removeSkill("rs_kanwei_effect");
 											return; // 直接结束，不往下执行
@@ -4221,21 +4220,6 @@ export default function (): importExtensionConfig {
 										return 100 - get.value(card);
 									})
 									.forResult();
-								await player.showCards(next.cards, "###稚皇###请令此牌：");
-								const buffResult = await player.chooseControl("无距离限制", "无次数限制")
-									.set("prompt", "请令此牌：")
-									.forResult();
-								
-								if (buffResult.control === "无距离限制") {
-									player.addGaintag(next.cards, "eternal_rs_zhihuang_buff_range");
-									game.log(next.cards, "无距离限制");
-								} else {
-									player.addGaintag(next.cards, "eternal_rs_zhihuang_buff_nocount");
-									game.log(next.cards, "无次数限制");
-								}
-
-								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
-								game.players.forEach(player => player.addTempSkill("rs_zhihuang_effect"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项一");
@@ -4249,20 +4233,6 @@ export default function (): importExtensionConfig {
 									})
 									.forResult();
 								const remain = player.getCards("h", c => !next.cards.includes(c));
-								await player.showCards(remain, "###稚皇###请令此牌：");
-								const buffResult = await player.chooseControl("无距离限制", "无次数限制")
-									.set("prompt", "请令此牌：")
-									.forResult();
-								
-								if (buffResult.control === "无距离限制") {
-									player.addGaintag(remain, "eternal_rs_zhihuang_buff_range");
-									game.log(remain, "无距离限制");
-								} else {
-									player.addGaintag(remain, "eternal_rs_zhihuang_buff_nocount");
-									game.log(remain, "无次数限制");
-								}
-								game.players.forEach(player => player.addTempSkill("rs_zhihuang_buff"));
-								game.players.forEach(player => player.addTempSkill("rs_zhihuang_effect"));
 								await player.recast(next.cards);
 								if (!ignore) {
 									player.markAuto("rs_zhihuang_used", "选项二");
@@ -4287,52 +4257,6 @@ export default function (): importExtensionConfig {
 								onremove: true,
 								intro: {
 									content: "本回合执行过选项：$",
-								},
-							},
-							buff: {
-								onremove(player) {
-									player.removeGaintag('eternal_rs_zhihuang_buff_range');
-									player.removeGaintag('eternal_rs_zhihuang_buff_nocount');
-								},
-								charlotte: true,
-								mod: {
-									targetInRange: function(card, player, target) {
-										if (card.cards?.every(i => i.hasGaintag("eternal_rs_zhihuang_buff_range"))) return true;
-									},			
-									cardUsable(card) {
-										if (card.cards?.every(i => i.hasGaintag("eternal_rs_zhihuang_buff_nocount"))) {
-											return Infinity;
-										}
-									}
-								},
-							},
-
-							effect: {
-								sub: true,
-								charlotte: true,
-								forced: true,
-								popup: false,
-								trigger: {
-									player: "useCard1",
-								},
-								filter: function(event, player) {
-									return (
-										event.addCount !== false &&
-										event.card.isCard &&
-										event.cards?.length == 1 &&
-										player.hasHistory("lose", evt => {
-											if ((evt.relatedEvent || evt.getParent()) !== event) return false;
-											return evt.hs.length == 1 && Object.values(evt.gaintag_map).flat().includes("eternal_rs_zhihuang_buff_nocount");
-										})
-									);
-								},
-								content: async function(event, trigger, player) {
-									trigger.addCount = false;
-									const stat = player.getStat().card, name = trigger.card.name;
-									if (typeof stat[name] == "number") {
-										stat[name]--;
-									}
-									game.log(trigger.card, "不计入次数");
 								},
 							},
 						},
@@ -4379,8 +4303,55 @@ export default function (): importExtensionConfig {
 											})
 											.forResult();
 							if (result.bool) {
+								await player.showCards(result.links, "###若王###请交给被重铸的牌：");
+								player.addGaintag(result.links, "eternal_rs_ruowang_buff_nocount");
+								game.players.forEach(current => current.addTempSkill("rs_ruowang_buff"));
+								game.players.forEach(current => current.addTempSkill("rs_ruowang_effect"));
 								await player.give(result.links, target, false);
 							}
+						},
+						subSkill: {
+							buff: {
+								onremove(player) {
+									player.removeGaintag("eternal_rs_ruowang_buff_nocount");
+								},
+								charlotte: true,
+								mod: {
+									cardUsable(card) {
+										if (card.cards?.every(i => i.hasGaintag("eternal_rs_ruowang_buff_nocount"))) {
+											return Infinity;
+										}
+									},
+								},
+							},
+							effect: {
+								sub: true,
+								charlotte: true,
+								forced: true,
+								popup: false,
+								trigger: {
+									player: "useCard1",
+								},
+								filter: function(event, player) {
+									return (
+										event.addCount !== false &&
+										event.card.isCard &&
+										event.cards?.length == 1 &&
+										player.hasHistory("lose", evt => {
+											if ((evt.relatedEvent || evt.getParent()) !== event) return false;
+											return evt.hs.length == 1 && Object.values(evt.gaintag_map).flat().includes("eternal_rs_ruowang_buff_nocount");
+										})
+									);
+								},
+								content: async function(event, trigger, player) {
+									trigger.addCount = false;
+									const stat = player.getStat().card, name = trigger.card.name;
+									if (typeof stat[name] == "number") {
+										stat[name]--;
+									}
+									game.log(trigger.card, "不计入次数");
+								},
+							},
 						},
 					},
 					rs_anji: {
