@@ -32,6 +32,40 @@ export default function (): importExtensionConfig {
 					width: "16px",
 					height: "16px",
 				}, // 当位于角色div中时，显示图标并设置尺寸
+				"div.marks > .card:has(> .background[style*='group_rinmeikan.png'])": {
+					background: "transparent",
+					border: "none",
+					boxShadow: "none",
+				},
+				"div.marks > .card:has(> .background[style*='group_rinmeikan.png']) > .background.skillmark": {
+					position: "absolute",
+					display: "block",
+					width: "36px",
+					height: "36px",
+					left: "-6px",
+					top: "-6px",
+					padding: "0",
+					backgroundColor: "transparent",
+					border: "none",
+					boxShadow: "none",
+				},
+				"div.marks > .card:has(> .background[style*='crown.png'])": {
+					background: "transparent",
+					border: "none",
+					boxShadow: "none",
+				},
+				"div.marks > .card:has(> .background[style*='crown.png']) > .background.skillmark": {
+					position: "absolute",
+					display: "block",
+					width: "24px",
+					height: "24px",
+					left: "0",
+					top: "0",
+					padding: "0",
+					backgroundColor: "transparent",
+					border: "none",
+					boxShadow: "none",
+				},
 				...Object.fromEntries(
 					Object.keys(groups).map(group => [
 						`div.button.character.newstyle > div.identity > div > div.starlight-group-icon.starlight-${group}`,
@@ -289,7 +323,7 @@ export default function (): importExtensionConfig {
 					rs_minku1: "可以选择移动关键牌以掌控局势，或获得更高的收益与控制牌堆。",
 					rs_kuina1: "将手牌控制在特定的数目可以持续获得收益，有一定多刀能力。",
 					rs_koharu1: "可以定点决斗或破坏关键牌，利用不同失去手牌的方式创造收益。",
-					rs_suzu1: "拥有具有目标限制的多刀能力，可以刻意规避此多刀，转而创造牌差。金岚微拂-穗波冰雨：通过不断保持技能数与手牌数之和触发收益，丢弃不同的技能可以双结算五谷或单目标牌。",
+					rs_suzu1: "拥有具有目标限制的多刀能力，可以刻意规避此多刀，转而创造牌差。",
 					rs_hisame1: "通过不断保持技能数与手牌数之和触发收益，丢弃不同的技能可以双结算五谷或单目标牌。",
 				},
 				character: {
@@ -702,6 +736,9 @@ export default function (): importExtensionConfig {
 							}
 							const { bool: result } = await target.chooseToDiscard({
 								position: "he",
+								ai(card) {
+									return 100 - get.value(card);
+								},
 								prompt: "是否弃一张牌，回复一点体力" +
 									(target.hasSkill("rs_xingzui") && !target.storage.rs_xingzui
 										? "（【星罪】：当前回复值+1）"
@@ -710,6 +747,38 @@ export default function (): importExtensionConfig {
 							if (result) {
 								await target.recover();
 							}
+						},
+						ai: {
+							order: 9,
+							getTargetValue(player, target) {
+								const isEnemy = get.attitude(player, target) < 0;
+								if (!player.hasSkill("rs_xingzui")) {
+									if (player.hp == 1 && !player.awakenedSkills.includes("rs_gexin")) {
+										if (target == player) return 10;
+										return isEnemy ? 10 : -10;
+									}
+									return -6;
+								}
+								if (player.storage.rs_xingzui) {
+									return -6;
+								}
+								const canSurvive = player.hp > 1 || player.countCards("h", card => card.name == "tao" || card.name == "jiu") > 0;
+								if (canSurvive) return target == player ? 8 : isEnemy ? 8 : -8;
+								return -6;
+							},
+							result: {
+								player(player) {
+									const usedTargets = player.getStorage("rs_daiao_used");
+									return game
+										.filterPlayer(target => !usedTargets.includes(target))
+										.some(target => lib.skill.rs_daiao.ai.getTargetValue(player, target) * get.attitude(player, target) > 0)
+										? 1
+										: 0;
+								},
+								target(player, target) {
+									return lib.skill.rs_daiao.ai.getTargetValue(player, target);
+								},
+							},
 						},
 						subSkill: {
 							used: {
@@ -739,9 +808,9 @@ export default function (): importExtensionConfig {
 							if (_status.connectMode || player == game.me) {
 								if (_status.connectMode && !game.online && player != game.me) {
 									game.broadcastAll(() => {
-                    					_status.tempMusic = "music_star_divine";
-                    					game.playBackgroundMusic();
-                					});
+										_status.tempMusic = "music_star_divine";
+										game.playBackgroundMusic();
+									});
 									// 客机
 									if (player.isOnline()) {
 										await new Promise((resolve) =>
@@ -821,7 +890,16 @@ export default function (): importExtensionConfig {
 						forced: true,
 						zhuanhuanji: true,
 						mark: true,
-						marktext: "☯",
+						markimage2: "extension/starlight/image/skill/crown.png",
+						$zhuanhuanji(skill, player) {
+							const mark = player.marks[skill];
+							if (!mark) return;
+							const image = mark.querySelector<HTMLElement>(".background.skillmark");
+							if (!image) return;
+							const flipped = image.dataset.flipped !== "true";
+							image.dataset.flipped = String(flipped);
+							image.style.transform = flipped ? "scaleX(-1)" : "";
+						},
 						intro: {
 							content: storage =>
 								!storage ? "阳：锁定技，你不因实体牌的效果回复体力的回复值+1" : "阴：锁定技，你不因实体牌的效果造成伤害的伤害值+1",
@@ -1401,7 +1479,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangxing: {
-                        audio: "ext:starlight/audio/skill:true",
+						audio: "ext:starlight/audio/skill:true",
 						mod: {
 							cardnumber(card, player) {
 								const num = card.number;
@@ -2061,6 +2139,7 @@ export default function (): importExtensionConfig {
 					rs_linyun: {
 						audio: "ext:starlight/audio/skill:true",
 						limited: true,
+							markimage2: "extension/starlight/image/skill/group_rinmeikan.png",
 						trigger: {
 							global: "dyingBegin",
 						},
@@ -2746,7 +2825,7 @@ export default function (): importExtensionConfig {
 								await player.gain(cards2, "gain2");
 								for (const card of cards2) {
 									if (card._name) card.name = card._name;
-                                    if (card._nature) card.nature = card._nature;
+									if (card._nature) card.nature = card._nature;
 									if (player.hasUseTarget(card, true, false)) {
 										await player.chooseUseTarget(card, true, false);
 									}
@@ -3008,9 +3087,9 @@ export default function (): importExtensionConfig {
 								charlotte: true,
 								async content(event, trigger, player) {
 									if (event.triggername == "turnStart") {
-                                    player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
-                                    return;
-                                    }
+									player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
+									return;
+									}
 									if (event.triggername == "phaseAfter") {
 										player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 										return;
@@ -3443,9 +3522,9 @@ export default function (): importExtensionConfig {
 						enable: ["chooseToUse", "chooseToRespond"],
 
 						usable(skill, player) {
-        					if (!player) player = get.player();
-        					return player.storage.rs_zhenjing_usable || 0;
-    					},
+							if (!player) player = get.player();
+							return player.storage.rs_zhenjing_usable || 0;
+						},
 
 						getLockedSkills(player) {
 							if (!player) player = get.player();
@@ -3558,29 +3637,29 @@ export default function (): importExtensionConfig {
 						group: ["rs_zhenjing_recover", "rs_zhenjing_refresh"],
 						subSkill: {
 							refresh: {
-            					trigger: {
-                					global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
-           						},
-            					silent: true,
-            					charlotte: true,
-            					filter(event, player, name) {
-                					// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
-                					if (name == "addSkill") {
-                    					const skillName = event.skill || event.name;
-                    					const info = get.info(skillName);
-                    					// 如果不是锁定技，直接返回 false，不处理
-                    					return info && !info.charlotte && (info.forced || info.locked);
-                					}
-                					// 回合开始直接放行
-                					return true;
-           						},
-            					async content(event, trigger, player) {
-                					// 重新计算当前的锁定技数量，并直接覆盖 storage
-                					const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
-                					player.storage.rs_zhenjing_usable = lockedSkills.length;
-                					player.syncStorage("rs_zhenjing_usable");
-            					},
-        					},
+								trigger: {
+									global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
+								},
+								silent: true,
+								charlotte: true,
+								filter(event, player, name) {
+									// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
+									if (name == "addSkill") {
+										const skillName = event.skill || event.name;
+										const info = get.info(skillName);
+										// 如果不是锁定技，直接返回 false，不处理
+										return info && !info.charlotte && (info.forced || info.locked);
+									}
+									// 回合开始直接放行
+									return true;
+								},
+								async content(event, trigger, player) {
+									// 重新计算当前的锁定技数量，并直接覆盖 storage
+									const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
+									player.storage.rs_zhenjing_usable = lockedSkills.length;
+									player.syncStorage("rs_zhenjing_usable");
+								},
+							},
 							recover: {
 								charlotte: true,
 								trigger: {
@@ -3607,7 +3686,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_kanwei: {
-						audio: "ext:starlight/audio/skill:true",
+						audio: false,
 						enable: "phaseUse",
 						getCanDo(player) {
 							const cards = player.getCards("she");
@@ -3655,14 +3734,11 @@ export default function (): importExtensionConfig {
 												return _status.event.controls[0];
 											})
 											.forResult();
-							player.markAuto("rs_kanwei_used", result.control);
-							player.addTempSkill("rs_kanwei_used");
-							player.removeSkill("rs_kanwei_effect"); 
-							player.addTempSkill("rs_kanwei_effect");
+							let next;
+							let targetCount;
 							if (result.control == "选项一") {
-								player.setStorage("rs_kanwei_effect", 2);
-								player.markSkill("rs_kanwei_effect");
-								const next = await player
+								targetCount = 2;
+								next = await player
 									.chooseCard("she", 2)
 									.set("filterCard", card => {
 										if (ui.selected.cards.length) {
@@ -3675,11 +3751,9 @@ export default function (): importExtensionConfig {
 									})
 									.set("complexCard", true)
 									.forResult();
-								await player.recast(next.cards);
 							} else if (result.control == "选项二") {
-								player.setStorage("rs_kanwei_effect", 3);
-								player.markSkill("rs_kanwei_effect");
-								const next = await player
+								targetCount = 3;
+								next = await player
 									.chooseCard("she", 3)
 									.set("filterCard", card => {
 										const types = ui.selected.cards.map(c => get.type2(c));
@@ -3690,11 +3764,9 @@ export default function (): importExtensionConfig {
 									})
 									.set("complexCard", true)
 									.forResult();
-								await player.recast(next.cards);
 							} else {
-								player.setStorage("rs_kanwei_effect", 4);
-								player.markSkill("rs_kanwei_effect");
-								const next = await player
+								targetCount = 4;
+								next = await player
 									.chooseCard("she", 4)
 									.set("filterCard", card => {
 										const suits = ui.selected.cards.map(c => get.suit(c));
@@ -3705,8 +3777,16 @@ export default function (): importExtensionConfig {
 									})
 									.set("complexCard", true)
 									.forResult();
-								await player.recast(next.cards);
 							}
+							if (!next?.bool || next.cards?.length !== targetCount) return;
+							game.playAudio("../extension/starlight/audio/skill/rs_kanwei.mp3");
+							await player.recast(next.cards);
+							player.markAuto("rs_kanwei_used", result.control);
+							player.addTempSkill("rs_kanwei_used");
+							player.removeSkill("rs_kanwei_effect");
+							player.addTempSkill("rs_kanwei_effect");
+							player.setStorage("rs_kanwei_effect", targetCount);
+							player.markSkill("rs_kanwei_effect");
 						},
 						mod: {
 							aiOrder(player, card, num) {
@@ -3765,7 +3845,7 @@ export default function (): importExtensionConfig {
 											return eff + Math.random();
 										})
 										.forResult();
-								    if (!result || !result.bool) {
+									if (!result || !result.bool) {
 											// 玩家点击了取消，在这里删除标记！
 											player.removeSkill("rs_kanwei_effect");
 											return; // 直接结束，不往下执行
@@ -4675,6 +4755,22 @@ export default function (): importExtensionConfig {
 								return target.isHealthy();
 							},
 						],
+						getTargetValue(player, target) {
+							const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
+							const used = player.getStorage("rs_zhongshu_used");
+							if (target == player) {
+								if (!filter0(player)) return 0;
+								let value = 0;
+								if (!used.includes(0)) value += Math.max(0, 3 - player.countCards("h"));
+								if (!used.includes(1) && player.isDamaged()) value++;
+								if (!used.includes(2)) value -= player.hp <= 1 ? 10 : 1;
+								return value;
+							}
+							let value = 0;
+							if (filter1(player, target)) value = Math.max(value, get.attitude(player, target));
+							if (filter2(player, target)) value = Math.max(value, -get.attitude(player, target));
+							return value;
+						},
 						async content(event, trigger, player) {
 							const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
 
@@ -4687,18 +4783,7 @@ export default function (): importExtensionConfig {
 									.set("targetz", targets)
 									.set("ai", target => {
 										const player = get.player();
-										const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
-										const att = get.attitude(player, target);
-										if (filter1(player, target)) {
-											return att;
-										}
-										if (filter2(player, target)) {
-											return -att;
-										}
-										if (filter0(player)) {
-											return player.getStorage("rs_zhongshu_used").includes(2);
-										}
-										return 0;
+										return lib.skill.rs_zhongshu.getTargetValue(player, target);
 									})
 									.forResult();
 								if (!resultA.bool) break;
@@ -4741,7 +4826,9 @@ export default function (): importExtensionConfig {
 												.set("ai", button => {
 													const { player, targetz } = get.event();
 													const att = get.attitude(player, targetz);
-													return button.link == 1 ? att : -att;
+													if (button.link == 1) return att;
+													if (button.link == 2) return -att;
+													return -Infinity;
 												})
 												.forResult();
 								if (resultB.bool && !resultB.links.includes(3)) {
@@ -4786,13 +4873,14 @@ export default function (): importExtensionConfig {
 							order: 15,
 							result: {
 								player(player) {
-									const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
-									if (filter0(player)) return player.getStorage("rs_zhongshu_used").includes(2) ? 1 : 0;
-									const targets1 = game.filterPlayer(p => filter1(player, p));
-									if (targets1.some(p => get.attitude(player, p) > 0)) return 1;
-									const targets2 = game.filterPlayer(p => filter2(player, p));
-									if (targets2.some(p => get.attitude(player, p) < 0)) return 1;
-									return 0;
+									return game
+										.filterPlayer(target => {
+											const [filter0, filter1, filter2] = lib.skill.rs_zhongshu.filterx;
+											return target == player ? filter0(player) : filter1(player, target) || filter2(player, target);
+										})
+										.some(target => lib.skill.rs_zhongshu.getTargetValue(player, target) > 0)
+										? 1
+										: 0;
 								},
 							},
 						},
@@ -5087,7 +5175,28 @@ export default function (): importExtensionConfig {
 						enable: ["chooseToUse", "chooseToRespond"],
 						filter(event, player) {
 							const num = player.countCards("she");
-							return num > 2 ? player.hasUseTarget({ name: "sha", nature: "fire" }, true, false) : player.hasUseTarget({ name: "sha", nature: "thunder" }, false, true);
+							const canUseFire = num >= 2 && event.filterCard(
+								{
+									name: "sha",
+									nature: "fire",
+									storage: { rs_weizhi: true },
+									cards: [game.createCard("sha", null, null, "fire"), game.createCard("sha", null, null, "fire")],
+								},
+								player,
+								event
+							);
+							const canUseThunder = num >= 3 && event.filterCard(
+								{
+									name: "sha",
+									nature: "thunder",
+									storage: { rs_weizhi: true },
+									cards: [game.createCard("sha", null, null, "thunder"), game.createCard("sha", null, null, "thunder"), game.createCard("sha", null, null, "thunder")],
+								},
+								player,
+								event
+							);
+							if (event.name == "chooseToRespond") return canUseFire || canUseThunder;
+							return (canUseFire && player.hasUseTarget({ name: "sha", nature: "fire" }, true, false)) || (canUseThunder && player.hasUseTarget({ name: "sha", nature: "thunder" }, false, true));
 						},
 						chooseButton: {
 							dialog(event, player) {
@@ -5099,10 +5208,16 @@ export default function (): importExtensionConfig {
 							},
 							filter(button, player) {
 								const num = player.countCards("she");
-								const cards = player.getCards("she");
 								const nature = button.link[3];
-								const fakeCards = nature != "thunder" ? [game.createCard("sha", null, null, "fire"), game.createCard("sha", null, null, "fire")] : [game.createCard("sha", null, null, "thunder"), game.createCard("sha", null, null, "thunder"), game.createCard("sha", null, null, "thunder")];
-								return _status.event.getParent().filterCard({ name: button.link[2], nature: button.link[3], storage: { rs_weizhi: true }, cards: fakeCards }, player, _status.event.getParent());
+								const count = nature == "thunder" ? 3 : 2;
+								if (num < count) return false;
+								const fakeCards = Array.from({ length: count }, () => game.createCard("sha", null, null, nature));
+								const event = _status.event.getParent();
+								if (!event.filterCard({ name: button.link[2], nature, storage: { rs_weizhi: true }, cards: fakeCards }, player, event)) return false;
+								if (event.name == "chooseToRespond") return true;
+								return nature == "thunder"
+									? player.hasUseTarget({ name: "sha", nature }, false, true)
+									: player.hasUseTarget({ name: "sha", nature }, true, false);
 							},
 							check(button) {
 								if (_status.event.getParent().type != "phase") return 1;
@@ -5448,11 +5563,14 @@ export default function (): importExtensionConfig {
 					rs_qingji: {
 						audio: "ext:starlight/audio/skill:true",
 						enable: "phaseUse",
+						hasWuguTarget(player) {
+							return game.hasPlayer(target => target != player && player.canUse({ name: "wugu", isCard: true }, target, false));
+						},
 						filter(event, player) {
 							const num = player.getSkills(null, false, false).filter(skill => !lib.skill[skill].charlotte && !skill.startsWith("player_when")).length;
 							const hs = player.countCards("h");
 							const she = player.countCards("she");
-							return hs + num == 3 || (hs + num >= 4 && she + num > 4);
+							return hs + num == 3 || (num <= 4 && hs + num >= 4 && she + num > 4 && lib.skill.rs_qingji.hasWuguTarget(player));
 						},
 						async content(event, trigger, player) {
 							let control = event.cost_data;
@@ -5466,7 +5584,7 @@ export default function (): importExtensionConfig {
 								controls.remove("选项一");
 								list[0] = `<span style="opacity:0.5">${list[0]}</span>`;
 							}
-							if (!(hs + num >= 4 && she + num > 4)) {
+							if (!(num <= 4 && hs + num >= 4 && she + num > 4 && lib.skill.rs_qingji.hasWuguTarget(player))) {
 								controls.remove("选项二");
 								list[1] = `<span style="opacity:0.5">${list[1]}</span>`;
 							}
@@ -5571,10 +5689,11 @@ export default function (): importExtensionConfig {
 							},
 							result: {
 								player(player) {
-									const num = player.getSkills(null, false, false).filter(skill => !player.isTempBanned(skill)).length;
-									const sum = player.countCards("h") + num;
-									if (sum == 3) return 2;
-									if (sum > 4) return 1;
+									const num = player.getSkills(null, false, false).filter(skill => !lib.skill[skill].charlotte && !skill.startsWith("player_when")).length;
+									const hs = player.countCards("h");
+									const she = player.countCards("she");
+									if (hs + num == 3) return 2;
+									if (num <= 4 && hs + num >= 4 && she + num > 4 && lib.skill.rs_qingji.hasWuguTarget(player)) return 1;
 									return 0;
 								},
 							},
