@@ -808,9 +808,9 @@ export default function (): importExtensionConfig {
 							if (_status.connectMode || player == game.me) {
 								if (_status.connectMode && !game.online && player != game.me) {
 									game.broadcastAll(() => {
-										_status.tempMusic = "music_star_divine";
-										game.playBackgroundMusic();
-									});
+                    					_status.tempMusic = "music_star_divine";
+                    					game.playBackgroundMusic();
+                					});
 									// 客机
 									if (player.isOnline()) {
 										await new Promise((resolve) =>
@@ -1479,7 +1479,7 @@ export default function (): importExtensionConfig {
 						},
 					},
 					rs_huangxing: {
-						audio: "ext:starlight/audio/skill:true",
+                        audio: "ext:starlight/audio/skill:true",
 						mod: {
 							cardnumber(card, player) {
 								const num = card.number;
@@ -2663,8 +2663,8 @@ export default function (): importExtensionConfig {
 						},
 						usable: 1,
 						filter(event, player) {
-							if (event.getParent("jiadao")) return false;
 							if (event.responded || !event.respondTo || !event.respondTo?.[0] || !event.respondTo?.[1]) return false;
+							if (get.name(event.respondTo[1]) == "jiedao") return false;
 							if (event.player == player || !player.inRange(event.player)) return false;
 							if (typeof event.filterCard != "function") return false;
 							if (player.hasCard(card => event.filterCard(card, player, event) && lib.filter.cardRespondable(card, player, event), "hs")) return true;
@@ -2825,7 +2825,7 @@ export default function (): importExtensionConfig {
 								await player.gain(cards2, "gain2");
 								for (const card of cards2) {
 									if (card._name) card.name = card._name;
-									if (card._nature) card.nature = card._nature;
+                                    if (card._nature) card.nature = card._nature;
 									if (player.hasUseTarget(card, true, false)) {
 										await player.chooseUseTarget(card, true, false);
 									}
@@ -3087,9 +3087,9 @@ export default function (): importExtensionConfig {
 								charlotte: true,
 								async content(event, trigger, player) {
 									if (event.triggername == "turnStart") {
-									player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
-									return;
-									}
+                                    player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
+                                    return;
+                                    }
 									if (event.triggername == "phaseAfter") {
 										player.unmarkAuto("rs_xiejing_isTrue", player.getStorage("rs_xiejing_isTrue"));
 										return;
@@ -3522,9 +3522,9 @@ export default function (): importExtensionConfig {
 						enable: ["chooseToUse", "chooseToRespond"],
 
 						usable(skill, player) {
-							if (!player) player = get.player();
-							return player.storage.rs_zhenjing_usable || 0;
-						},
+        					if (!player) player = get.player();
+        					return player.storage.rs_zhenjing_usable || 0;
+    					},
 
 						getLockedSkills(player) {
 							if (!player) player = get.player();
@@ -3637,29 +3637,29 @@ export default function (): importExtensionConfig {
 						group: ["rs_zhenjing_recover", "rs_zhenjing_refresh"],
 						subSkill: {
 							refresh: {
-								trigger: {
-									global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
-								},
-								silent: true,
-								charlotte: true,
-								filter(event, player, name) {
-									// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
-									if (name == "addSkill") {
-										const skillName = event.skill || event.name;
-										const info = get.info(skillName);
-										// 如果不是锁定技，直接返回 false，不处理
-										return info && !info.charlotte && (info.forced || info.locked);
-									}
-									// 回合开始直接放行
-									return true;
-								},
-								async content(event, trigger, player) {
-									// 重新计算当前的锁定技数量，并直接覆盖 storage
-									const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
-									player.storage.rs_zhenjing_usable = lockedSkills.length;
-									player.syncStorage("rs_zhenjing_usable");
-								},
-							},
+            					trigger: {
+                					global: ["gameStart", "phaseZhunbeiBegin", "addSkill"], 
+           						},
+            					silent: true,
+            					charlotte: true,
+            					filter(event, player, name) {
+                					// 如果是 addSkill 触发，必须判断获得的技能是不是锁定技
+                					if (name == "addSkill") {
+                    					const skillName = event.skill || event.name;
+                    					const info = get.info(skillName);
+                    					// 如果不是锁定技，直接返回 false，不处理
+                    					return info && !info.charlotte && (info.forced || info.locked);
+                					}
+                					// 回合开始直接放行
+                					return true;
+           						},
+            					async content(event, trigger, player) {
+                					// 重新计算当前的锁定技数量，并直接覆盖 storage
+                					const lockedSkills = lib.skill.rs_zhenjing.getLockedSkills(player);
+                					player.storage.rs_zhenjing_usable = lockedSkills.length;
+                					player.syncStorage("rs_zhenjing_usable");
+            					},
+        					},
 							recover: {
 								charlotte: true,
 								trigger: {
@@ -3714,11 +3714,12 @@ export default function (): importExtensionConfig {
 						async content(event, trigger, player) {
 							const keys = ["选项一", "选项二", "选项三"];
 							const descList = ["重铸2张不同颜色的牌", "重铸3张不同类型的牌", "重铸4张不同花色的牌"];
+							const canDo = lib.skill.rs_kanwei.getCanDo(player);
 							let controls = [...keys];
 							let list = [...descList];
 							const used = player.getStorage("rs_kanwei_used");
 							keys.forEach((key, i) => {
-								if (used.includes(key)) {
+								if (used.includes(key) || !canDo[i]) {
 									controls = controls.filter(k => k !== key);
 									list[i] = `<span style="opacity:0.5">${list[i]}</span>`;
 								}
@@ -3845,7 +3846,7 @@ export default function (): importExtensionConfig {
 											return eff + Math.random();
 										})
 										.forResult();
-									if (!result || !result.bool) {
+								    if (!result || !result.bool) {
 											// 玩家点击了取消，在这里删除标记！
 											player.removeSkill("rs_kanwei_effect");
 											return; // 直接结束，不往下执行
